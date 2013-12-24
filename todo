@@ -1,0 +1,3 @@
+To do 
+    1. 関数の定義がGlobal contextに登録されていて，隠蔽できていない．
+    2. text load function 
