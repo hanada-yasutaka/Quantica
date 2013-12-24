@@ -1,0 +1,894 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     30155,        885]
+NotebookOptionsPosition[     24727,        695]
+NotebookOutlinePosition[     26286,        746]
+CellTagsIndexPosition[     25996,        736]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[ButtonBox["Quantica",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   FrontEnd`FileName[{
+     ParentDirectory[], "Guides"}, "Quantica.nb", CharacterEncoding -> 
+    "UTF-8"], None}]], "Title",
+ CellChangeTimes->{{3.596499764760356*^9, 3.596499813798032*^9}, {
+  3.596500181439262*^9, 3.596500182044181*^9}, {3.596500216015832*^9, 
+  3.596500216020207*^9}, {3.5965904568393*^9, 3.5965904621594067`*^9}, {
+  3.59659049771416*^9, 3.5965904977170897`*^9}}],
+
+Cell["Calculator of quantum systems with mathematica", "Subtitle",
+ CellChangeTimes->{{3.594875887880175*^9, 3.5948759200501432`*^9}, {
+   3.5953106987840242`*^9, 3.595310701421096*^9}, 3.596497477243435*^9, {
+   3.596500367496216*^9, 3.596500367996688*^9}}],
+
+Cell["20 December, 2013", "Date",
+ CellChangeTimes->{{3.594875950947781*^9, 3.594875956895121*^9}, 
+   3.5964974772438307`*^9, 3.596500354527368*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Basic Introduction", "Section",
+ CellChangeTimes->{3.596481129676046*^9},
+ CellID->509267359],
+
+Cell["\:57fa\:672c\:7684\:306a\:4f7f\:3044\:65b9\:3092\:89e3\:8aac\:3057\:307e\
+\:3059\:ff0eQuantica\:306eimport\:306f", "Text",
+ CellChangeTimes->{{3.596481131559218*^9, 3.596481139857881*^9}, {
+  3.5965015607217083`*^9, 3.596501568459165*^9}, {3.596504016458468*^9, 
+  3.596504026189414*^9}},
+ CellID->1534169418],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Get", "[", "\"\<Quantica`\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.596501386144252*^9, 3.596501411529936*^9}, {
+  3.596501920911077*^9, 3.5965019240702963`*^9}}],
+
+Cell["\<\
+Quantica\:306eimport\:306b\:3088\:308a\:4ee5\:4e0b\:306e\:5909\:6570\:540d\
+\:306f\:4f7f\:7528\:3059\:308b\:4e8b\:304c\:51fa\:6765\:307e\:305b\:3093\:ff0e\
+
+\:4e0d\:5e78\:306b\:3057\:3066\:5909\:6570\:540d\:306b\:91cd\:8907\:304c\:3042\
+\:308b\:5834\:5408\:306f\:3069\:3046\:3059\:308c\:3070\:826f\:3044\:3067\:3057\
+\:3087\:3046\:306d\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.596481464534789*^9, 3.596481492546177*^9}, {
+   3.596481525063156*^9, 3.596481561430871*^9}, 3.5965015782397842`*^9, {
+   3.596504145643365*^9, 3.5965041559026117`*^9}},
+ CellID->669104544],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Contexts", "[", "\"\<Quantica`*\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Names", "[", "\"\<Quantica`*\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.596481378597208*^9, 3.596481386488761*^9}, 
+   3.596481467559531*^9, {3.5964814991497726`*^9, 3.596481509860566*^9}, {
+   3.59648183203918*^9, 3.596481839847219*^9}, {3.5964829427616043`*^9, 
+   3.596482950002715*^9}, {3.596482982002157*^9, 3.596482983065189*^9}, {
+   3.596501516993915*^9, 3.596501517878233*^9}},
+ CellID->2058623809],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Quantica`\"\>", ",", "\<\"Quantica`BCH`\"\>", 
+   ",", "\<\"Quantica`BCH`Private`\"\>", ",", "\<\"Quantica`MP`\"\>", 
+   ",", "\<\"Quantica`Private`\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.5964815071529713`*^9, 3.596481510155962*^9}, 
+   3.596481843749693*^9, 3.596482161427556*^9, 3.596482954147304*^9, 
+   3.596483008585815*^9, {3.596483284257243*^9, 3.5964832888248787`*^9}, 
+   3.596483438100171*^9, 3.596483487923237*^9, 3.596484167336534*^9, 
+   3.5965015415799313`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Area\"\>", ",", "\<\"BCH\"\>", ",", "\<\"Dim\"\>", 
+   ",", "\<\"Domain\"\>", ",", "\<\"Eigen\"\>", ",", "\<\"GetSystem\"\>", 
+   ",", "\<\"Hbar\"\>", ",", "\<\"InnerProduct\"\>", 
+   ",", "\<\"InnerProducts\"\>", ",", "\<\"MP\"\>", ",", "\<\"Overlap\"\>", 
+   ",", "\<\"Planck\"\>", ",", "\<\"Quantica\"\>", 
+   ",", "\<\"QuanticaSetting\"\>", ",", "\<\"QuasiEnergy\"\>", 
+   ",", "\<\"SetSystem\"\>", ",", "\<\"SortEigen\"\>", 
+   ",", "\<\"SortIndex\"\>", ",", "\<\"State\"\>", ",", "\<\"Tau\"\>", 
+   ",", "\<\"X\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.5964815071529713`*^9, 3.596481510155962*^9}, 
+   3.596481843749693*^9, 3.596482161427556*^9, 3.596482954147304*^9, 
+   3.596483008585815*^9, {3.596483284257243*^9, 3.5964832888248787`*^9}, 
+   3.596483438100171*^9, 3.596483487923237*^9, 3.596484167336534*^9, 
+   3.596501541582284*^9}]
+}, Open  ]],
+
+Cell["\<\
+\:6b21\:306b\:7cfb\:306e\:8a2d\:5b9a\:306e\:305f\:3081QuanticaSetting\:3068\
+SetSyste\:3092\:5b9f\:884c\:3059\:308b\:5fc5\:8981\:304c\:3042\:308a\:307e\
+\:3059\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.596504030262463*^9, 3.5965041082026863`*^9}, {
+  3.5965041407095633`*^9, 3.5965041666132936`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "QuanticaSetting"}]], "Input",
+ CellChangeTimes->{{3.596501476478194*^9, 3.596501479765667*^9}}],
+
+Cell[BoxData[
+ StyleBox["\<\"QuanticaSetting[dim, domain, tau=1 ],\\n\\ndim: integer >1 and \
+even number,\\n\\ndomain: 2x2 list such as {{qmin,qmax}, {pmin,pmax}}. each \
+variables request a ratoinal value\\n,\\ntau:(optional) rational \
+value\\n\"\>", "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.5965014809601994`*^9},
+ CellTags->"Info3596533880-8049425"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "SetSystem"}]], "Input",
+ CellChangeTimes->{{3.5965014872557697`*^9, 3.596501494001094*^9}}],
+
+Cell[BoxData[
+ StyleBox["\<\"SetSystem[T,V]: Kinetic function and Potential function\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.596501495551547*^9},
+ CellTags->"Info3596533895-8049425"]
+}, Open  ]],
+
+Cell["\<\
+QuanticaSetting\:3092\:5b9f\:884c\:3059\:308b\:4e8b\:3067\:ff0cState\:ff0c\
+Utile\:ff0cQmap\:7b49\:3005\:306e\:30d1\:30c3\:30b1\:30fc\:30b8\:304c\:4ed5\
+\:69d8\:53ef\:80fd\:306b\:306a\:308a\:307e\:3059\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.596481602837088*^9, 3.5964816952833967`*^9}, {
+  3.596481877792083*^9, 3.596481898549842*^9}},
+ CellID->1122420826],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"dim", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"domain", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "1"}], "/", "2"}], ",", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{"dim", ",", " ", "domain"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Contexts", "[", "\"\<Quantica`*\>\"", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"Names", "[", "\"\<Quantica`*\>\"", "]"}]}], "Input",
+ CellChangeTimes->{{3.596481732066609*^9, 3.5964817771255074`*^9}, {
+  3.596481854347972*^9, 3.59648186090762*^9}, {3.596482123270193*^9, 
+  3.596482171225832*^9}},
+ CellID->1756353130],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Dim:\"\>", ",", "10", ",", "\<\"Domain:\"\>", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", "2"]}], ",", 
+       FractionBox["1", "2"]}], "}"}]}], "}"}], ",", "\<\"Tau:\"\>", ",", 
+   "1"}], "}"}]], "Print",
+ CellChangeTimes->{
+  3.596481746086111*^9, 3.596481777568763*^9, 3.596481861973948*^9, {
+   3.5964821652593403`*^9, 3.596482171995555*^9}, 3.596483011337337*^9, 
+   3.596483296566765*^9, 3.5964834421674633`*^9, 3.59648349036791*^9, 
+   3.596484170426429*^9},
+ CellID->1263710368],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Quantica`\"\>", ",", "\<\"Quantica`BCH`\"\>", 
+   ",", "\<\"Quantica`BCH`Private`\"\>", ",", "\<\"Quantica`FourierBase`\"\>",
+    ",", "\<\"Quantica`FourierBase`Private`\"\>", ",", "\<\"Quantica`MP`\"\>",
+    ",", "\<\"Quantica`Private`\"\>", ",", "\<\"Quantica`Qmap`\"\>", 
+   ",", "\<\"Quantica`Qmap`Private`\"\>", ",", "\<\"Quantica`State`\"\>", 
+   ",", "\<\"Quantica`State`Private`\"\>", ",", "\<\"Quantica`Util`\"\>", 
+   ",", "\<\"Quantica`Util`Private`\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.5964818620320187`*^9, {3.596482165254218*^9, 3.596482172053075*^9}, 
+   3.596483011376025*^9, 3.596483296622415*^9, 3.596483442406962*^9, 
+   3.596483490419504*^9, 3.596484170459914*^9},
+ CellID->566886146],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Area\"\>", ",", "\<\"BCH\"\>", ",", "\<\"Dim\"\>", 
+   ",", "\<\"Domain\"\>", ",", "\<\"Eigen\"\>", ",", "\<\"FourierBase\"\>", 
+   ",", "\<\"GetSystem\"\>", ",", "\<\"Hbar\"\>", ",", "\<\"InnerProduct\"\>",
+    ",", "\<\"InnerProducts\"\>", ",", "\<\"MP\"\>", ",", "\<\"Overlap\"\>", 
+   ",", "\<\"Planck\"\>", ",", "\<\"Qmap\"\>", ",", "\<\"Quantica\"\>", 
+   ",", "\<\"QuanticaSetting\"\>", ",", "\<\"QuasiEnergy\"\>", 
+   ",", "\<\"SetSystem\"\>", ",", "\<\"SortEigen\"\>", 
+   ",", "\<\"SortIndex\"\>", ",", "\<\"State\"\>", ",", "\<\"Tau\"\>", 
+   ",", "\<\"Util\"\>", ",", "\<\"X\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.5964818620320187`*^9, {3.596482165254218*^9, 3.596482172053075*^9}, 
+   3.596483011376025*^9, 3.596483296622415*^9, 3.596483442406962*^9, 
+   3.596483490419504*^9, 3.596484170462316*^9},
+ CellID->1417997730]
+}, Open  ]],
+
+Cell["\:307e\:305f\:5e7e\:3064\:304b\:306e\:30d1\:30e9\:30e1\:30fc\:30bf\:30fc\
+\:304cfix\:3055\:308c\:307e\:3059\:ff0e", "Text",
+ CellChangeTimes->{{3.59648191356817*^9, 3.596481931028483*^9}},
+ CellID->1215446818],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{"Planck", "\[IndentingNewLine]", 
+ RowBox[{"?", "Planck"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "Hbar"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "Area"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "Domain"}]}], "Input",
+ CellChangeTimes->{{3.59648191356817*^9, 3.596481944887944*^9}, {
+  3.596481977209831*^9, 3.596482008387274*^9}},
+ CellID->1150219862],
+
+Cell[BoxData["0.1`20."], "Output",
+ CellChangeTimes->{3.596481945258112*^9, 3.596482011694532*^9, 
+  3.596482193416366*^9, 3.596483014355103*^9, 3.596484174996456*^9},
+ CellID->1661817351],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox["\<\"effective Planck's constant\"\>", "MSG"]], "Print", \
+"PrintUsage",
+ CellChangeTimes->{3.5964841753687267`*^9},
+ CellTags->"Info3596516574-6050041",
+ CellID->2139389022],
+
+Cell[BoxData[
+ StyleBox["\<\"effective Planck's constant divided by 2pi\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.59648417576372*^9},
+ CellTags->"Info3596516575-6050041",
+ CellID->1392591033],
+
+Cell[BoxData[
+ StyleBox["\<\"Area of the phase space\"\>", "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.596484176149384*^9},
+ CellTags->"Info3596516575-6050041",
+ CellID->2000706625],
+
+Cell[BoxData[
+ StyleBox["\<\"Domain of the phase space {{q interval}, {p interval}}\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.59648417651781*^9},
+ CellTags->"Info3596516576-6050041",
+ CellID->577301649]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "X"}]], "Input",
+ CellChangeTimes->{{3.59648195355612*^9, 3.596482026338833*^9}},
+ CellID->905457823],
+
+Cell[BoxData[
+ StyleBox["\<\"coordinate of the phase space X = [q,p]\"\>", "MSG"]], "Print",\
+ "PrintUsage",
+ CellChangeTimes->{3.596484180978368*^9},
+ CellTags->"Info3596516580-6050041",
+ CellID->377697597]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"X", "[", 
+   RowBox[{"[", "1", "]"}], "]"}], " ", 
+  RowBox[{"(*", "q", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"X", "[", 
+   RowBox[{"[", "2", "]"}], "]"}], " ", 
+  RowBox[{"(*", "p", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.5964820315695333`*^9, 3.596482035717355*^9}, {
+  3.596482201209234*^9, 3.596482211761763*^9}, {3.596482714084787*^9, 
+  3.596482720803906*^9}},
+ CellID->1389635498],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0", ",", "0.1`20.", ",", "0.2`20.", ",", "0.3`20.", ",", "0.4`20.", ",", 
+   "0.5`20.", ",", "0.6`20.", ",", "0.7`20.", ",", "0.8`20.", ",", 
+   "0.9`20."}], "}"}]], "Output",
+ CellChangeTimes->{3.596482036603766*^9, 3.596482212604025*^9, 
+  3.596483018877442*^9, 3.596484181869334*^9},
+ CellID->1852247],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"-", "0.5`20."}], ",", 
+   RowBox[{"-", "0.4`20."}], ",", 
+   RowBox[{"-", "0.3`20."}], ",", 
+   RowBox[{"-", "0.2`20."}], ",", 
+   RowBox[{"-", "0.1`20."}], ",", "0", ",", "0.1`20.", ",", "0.2`20.", ",", 
+   "0.3`20.", ",", "0.4`20."}], "}"}]], "Output",
+ CellChangeTimes->{3.596482036603766*^9, 3.596482212604025*^9, 
+  3.596483018877442*^9, 3.596484181871567*^9},
+ CellID->1065944271]
+}, Open  ]],
+
+Cell["\<\
+QuanticaSetting\:306f\:6b21\:306e\:3088\:3046\:306a\:4ee3\:5165\:3092\:7981\
+\:6b62\:3057\:3066\:3044\:307e\:3059\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.59648210020646*^9, 3.596482116260593*^9}, {
+  3.596482239631672*^9, 3.596482239635152*^9}, {3.596501599580111*^9, 
+  3.596501599730792*^9}},
+ CellID->429379588],
+
+Cell["\<\
+dim\:306f0\:4ee5\:4e0a\:306e\:6574\:6570\:3067\:306a\:3051\:308c\:3070\:306a\
+\:308a\:307e\:305b\:3093\
+\>", "Text",
+ CellChangeTimes->{{3.59648210020646*^9, 3.596482116260593*^9}, {
+  3.596482239631672*^9, 3.596482252533908*^9}},
+ CellID->1681959032],
+
+Cell["\<\
+domain\:53ca\:3073tau\:306f\:7cbe\:5ea6\:7121\:9650\:5927\:306e\:8868\:73fe\
+\:3067\:4ee3\:5165\:3057\:306a\:3051\:308c\:3070\:306a\:308a\:307e\:305b\:3093\
+\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.59648210020646*^9, 3.596482116260593*^9}, {
+  3.596482239631672*^9, 3.596482286102206*^9}},
+ CellID->1358205363],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{
+   RowBox[{"-", "2"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{"3.0", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{"4", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{"4", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1.0"}], "}"}]}], "}"}]}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{"4", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", "1.2"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuanticaSetting", "[", 
+  RowBox[{"4", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", "0", "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", "1.2"}], "]"}]}], "Input",\
+
+ CellChangeTimes->{{3.595715583767314*^9, 3.5957155982019978`*^9}, {
+  3.595715759424469*^9, 3.5957157680285683`*^9}, {3.595715991752716*^9, 
+  3.595716012637455*^9}, {3.595716082422565*^9, 3.595716086730262*^9}, {
+  3.595716122112978*^9, 3.595716127703915*^9}, {3.595716220766719*^9, 
+  3.5957162295173264`*^9}, {3.595717089992729*^9, 3.5957171625476627`*^9}, {
+  3.595897235078491*^9, 3.5958972383778257`*^9}, {3.596482230916519*^9, 
+  3.596482231585476*^9}},
+ CellID->1572274389],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"QuanticaSetting", "::", "dimError"}], "MessageName"], ":", 
+  " ", "\<\"require dim=>1 and even integer, but you input \[NoBreak]\\!\\(-2\
+\\)\[NoBreak]\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.59648222043464*^9, 3.59648223272348*^9}, 
+   3.596483025822628*^9, 3.5964841853332663`*^9},
+ CellID->1016779423],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"QuanticaSetting", "::", "dimError"}], "MessageName"], ":", 
+  " ", "\<\"require dim=>1 and even integer, but you input \
+\[NoBreak]\\!\\(3.`\\)\[NoBreak]\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.59648222043464*^9, 3.59648223272348*^9}, 
+   3.596483025822628*^9, 3.5964841859315434`*^9},
+ CellID->1484383182],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"QuanticaSetting", "::", "precisionError"}], "MessageName"], ":", 
+  " ", "\<\"don't use floting point value(1.0 or 2.0).\\n use infinite \
+precision representation such as 2, Sqrt[2] or 1/10.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.59648222043464*^9, 3.59648223272348*^9}, 
+   3.596483025822628*^9, 3.596484186357148*^9},
+ CellID->710612675],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"QuanticaSetting", "::", "precisionError"}], "MessageName"], ":", 
+  " ", "\<\"don't use floting point value(1.0 or 2.0).\\n use infinite \
+precision representation such as 2, Sqrt[2] or 1/10.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.59648222043464*^9, 3.59648223272348*^9}, 
+   3.596483025822628*^9, 3.596484186784213*^9},
+ CellID->1110667758],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"QuanticaSetting", "::", "precisionError"}], "MessageName"], ":", 
+  " ", "\<\"don't use floting point value(1.0 or 2.0).\\n use infinite \
+precision representation such as 2, Sqrt[2] or 1/10.\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.59648222043464*^9, 3.59648223272348*^9}, 
+   3.596483025822628*^9, 3.596484187136392*^9},
+ CellID->1065148982],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"QuanticaSetting", "::", "domainError"}], "MessageName"], ":", 
+  " ", "\<\"require 2x2 list such that {{qmin,qmax},{pmin,pmax}}\"\>"}]], \
+"Message", "MSG",
+ CellChangeTimes->{{3.59648222043464*^9, 3.59648223272348*^9}, 
+   3.596483025822628*^9, 3.5964841875002937`*^9},
+ CellID->535259082]
+}, Open  ]],
+
+Cell["\:89e3\:304f\:3079\:304d\:7cfb\:306e\:5b9a\:7fa9\:306f", "Text",
+ CellChangeTimes->{{3.596482300806657*^9, 3.59648230383278*^9}, {
+  3.596482416028058*^9, 3.596482418873962*^9}},
+ CellID->1753851978],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"T", "[", "x_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"x", "^", "2"}], "/", "2"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"V", "[", "x_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"x", "^", "2"}], "/", "2"}]}], "\[IndentingNewLine]", 
+ RowBox[{"SetSystem", "[", 
+  RowBox[{"T", ",", "V"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"t", ",", "v"}], "}"}], "=", 
+   RowBox[{"GetSystem", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"t", "[", "x", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"v", "[", "x", "]"}]}], "Input",
+ CellChangeTimes->{{3.596482341649074*^9, 3.596482406914247*^9}},
+ CellID->629655524],
+
+Cell[BoxData[
+ FractionBox[
+  SuperscriptBox["x", "2"], "2"]], "Output",
+ CellChangeTimes->{{3.596482402717717*^9, 3.596482408458109*^9}, 
+   3.596483029519902*^9, 3.596483500326714*^9, 3.596484189544963*^9},
+ CellID->290393891],
+
+Cell[BoxData[
+ FractionBox[
+  SuperscriptBox["x", "2"], "2"]], "Output",
+ CellChangeTimes->{{3.596482402717717*^9, 3.596482408458109*^9}, 
+   3.596483029519902*^9, 3.596483500326714*^9, 3.596484189546981*^9},
+ CellID->1567280053]
+}, Open  ]],
+
+Cell["\<\
+\:3068\:3057\:3066\:304a\:3053\:306a\:3044\:307e\:3059\:ff0e\:95a2\:6570\:306e\
+\:5b9a\:7fa9\:306f\:7cbe\:5ea6\:7121\:9650\:5927\:306e\:8868\:73fe\:3067\:884c\
+\:308f\:306a\:3051\:308c\:3070\:306a\:308a\:307e\:305b\:3093\:ff0e\:307e\:305f\
+\:672a\:5b9a\:7fa9\:95a2\:6570\:306f\:4f7f\:7528\:3059\:308b\:4e8b\:304c\:51fa\
+\:6765\:307e\:305b\:3093\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.596482783287339*^9, 3.59648278555925*^9}, 
+   3.596484203785412*^9},
+ CellID->1043407206],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"T", "[", "x_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"x", "^", "2"}], "/", "2.0"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"V", "[", "x_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{"x", "^", "2"}], "/", "2"}]}], "\[IndentingNewLine]", 
+ RowBox[{"SetSystem", "[", 
+  RowBox[{"T", ",", "V"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{"SetSystem", "[", 
+  RowBox[{"G", ",", "V"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.596482341649074*^9, 3.596482406914247*^9}, {
+   3.5964827471975403`*^9, 3.5964827645337257`*^9}, 3.596504212694974*^9},
+ CellID->1712302728],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"SetSystem", "::", "precisionError"}], "MessageName"], ":", 
+  " ", "\<\"Precision of \[NoBreak]\\!\\(\\\"T\\\"\\)\[NoBreak] is \
+MachinePrecision\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.596482766401054*^9, 3.5964830334659643`*^9, 
+  3.596484194086581*^9},
+ CellID->241436669],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"SetSystem", "::", "defError"}], "MessageName"], ":", 
+  " ", "\<\"Function \[NoBreak]\\!\\(\\\"G\\\"\\)\[NoBreak] is not defined.\"\
+\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.596482766401054*^9, 3.5964830334659643`*^9, 
+  3.596484194424108*^9},
+ CellID->1229486700]
+}, Open  ]],
+
+Cell["\<\
+SetSystem\:3092\:5b9f\:884c\:3057\:305f\:5f8c\:306b\:ff0cT,V\:306e\:5b9a\:7fa9\
+\:3092\:5909\:66f4\:3057\:3066\:3082Quantica\:5185\:90e8\:3067\:5b9a\:7fa9\
+\:3055\:308c\:305f\:5b9a\:7fa9\:5f0f\:306f\:5909\:66f4\:3055\:308c\:307e\:305b\
+\:3093\:ff0e\:5909\:66f4\:3059\:308b\:5834\:5408\:306fSetSystem\:3092\:901a\
+\:3058\:3066\:884c\:308f\:306a\:3051\:308c\:3070\:306a\:308a\:307e\:305b\:3093\
+\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.596483557024001*^9, 3.596483559022949*^9}, {
+  3.596484200951146*^9, 3.596484219209002*^9}, {3.596501616011491*^9, 
+  3.596501616167274*^9}},
+ CellID->203848836],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"T", "[", "x_", "]"}], ":=", 
+  RowBox[{"x", "^", "2"}]}], "\n", 
+ RowBox[{
+  RowBox[{"V", "[", "x_", "]"}], ":=", 
+  RowBox[{"x", "^", "2"}]}], "\n", 
+ RowBox[{
+  RowBox[{"SetSystem", "[", 
+   RowBox[{"T", ",", "V"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"T", "[", "x_", "]"}], ":=", 
+  RowBox[{"x", "^", "3"}]}], "\n", 
+ RowBox[{
+  RowBox[{"V", "[", "x_", "]"}], ":=", 
+  RowBox[{"x", "^", "3"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"t", ",", "v"}], "}"}], " ", "=", " ", 
+   RowBox[{"GetSystem", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"t", "[", "x", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"v", "[", "x", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetSystem", "[", 
+   RowBox[{"T", ",", "V"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"t", ",", "v"}], "}"}], " ", "=", " ", 
+   RowBox[{"GetSystem", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"t", "[", "x", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"v", "[", "x", "]"}]}], "Input",
+ CellChangeTimes->{{3.59648286331877*^9, 3.5964829304050627`*^9}, {
+   3.596483127596586*^9, 3.5964831564392567`*^9}, {3.5964835248279343`*^9, 
+   3.596483643811822*^9}, {3.596483712789669*^9, 3.5964837411726513`*^9}, {
+   3.596483778681205*^9, 3.596484036319325*^9}, {3.596484221292046*^9, 
+   3.596484224655665*^9}, 3.596504216518073*^9},
+ CellID->193449840],
+
+Cell[BoxData[
+ SuperscriptBox["x", "2"]], "Output",
+ CellChangeTimes->{{3.596484020944899*^9, 3.596484037123473*^9}, 
+   3.5964842310707827`*^9},
+ CellID->895315466],
+
+Cell[BoxData[
+ SuperscriptBox["x", "2"]], "Output",
+ CellChangeTimes->{{3.596484020944899*^9, 3.596484037123473*^9}, 
+   3.596484231073403*^9},
+ CellID->149122533],
+
+Cell[BoxData[
+ SuperscriptBox["x", "3"]], "Output",
+ CellChangeTimes->{{3.596484020944899*^9, 3.596484037123473*^9}, 
+   3.596484231075787*^9},
+ CellID->188996082],
+
+Cell[BoxData[
+ SuperscriptBox["x", "3"]], "Output",
+ CellChangeTimes->{{3.596484020944899*^9, 3.596484037123473*^9}, 
+   3.596484231077754*^9},
+ CellID->328836261]
+}, Open  ]],
+
+Cell["\<\
+GetSystem\:3067\:53d7\:3051\:308b\:95a2\:6570\:306f\:5b9a\:7fa9\:5f0fT,V\:3068\
+\:91cd\:8907\:3057\:306a\:3044\:69d8\:306b\:3057\:3066\:4e0b\:3055\:3044\:ff0e\
+\>", "Text",
+ CellChangeTimes->{{3.596483047955516*^9, 3.596483123803508*^9}, {
+   3.596484057841133*^9, 3.596484079944914*^9}, 3.596484215012862*^9},
+ CellID->1017453647]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "Section",
+ CellChangeTimes->{{3.59649861528916*^9, 3.5964986176901093`*^9}, {
+  3.596500136409605*^9, 3.59650013708287*^9}}],
+
+Cell[TextData[ButtonBox["Energy Domain problem",
+ BaseStyle->"Hyperlink",
+ ButtonData->{"Energy Domain.nb", None}]], "Item",
+ CellChangeTimes->{{3.59649865528233*^9, 3.596498666402494*^9}, {
+  3.596501682311797*^9, 3.596501696864259*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{534, Automatic}, {Automatic, 109}},
+ShowSelection->True,
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (2013\:5e741\
+\:670828\:65e5)",
+StyleDefinitions->FrontEnd`FileName[{"Report"}, "StandardReport.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info3596533880-8049425"->{
+  Cell[5133, 130, 366, 6, 146, "Print",
+   CellTags->"Info3596533880-8049425"]},
+ "Info3596533895-8049425"->{
+  Cell[5659, 145, 204, 4, 42, "Print",
+   CellTags->"Info3596533895-8049425"]},
+ "Info3596516574-6050041"->{
+  Cell[10272, 264, 198, 5, 39, "Print",
+   CellTags->"Info3596516574-6050041",
+   CellID->2139389022]},
+ "Info3596516575-6050041"->{
+  Cell[10473, 271, 211, 5, 42, "Print",
+   CellTags->"Info3596516575-6050041",
+   CellID->1392591033],
+  Cell[10687, 278, 190, 4, 42, "Print",
+   CellTags->"Info3596516575-6050041",
+   CellID->2000706625]},
+ "Info3596516576-6050041"->{
+  Cell[10880, 284, 222, 5, 42, "Print",
+   CellTags->"Info3596516576-6050041",
+   CellID->577301649]},
+ "Info3596516580-6050041"->{
+  Cell[11283, 300, 207, 5, 42, "Print",
+   CellTags->"Info3596516580-6050041",
+   CellID->377697597]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info3596533880-8049425", 25150, 708},
+ {"Info3596533895-8049425", 25260, 711},
+ {"Info3596516574-6050041", 25369, 714},
+ {"Info3596516575-6050041", 25502, 718},
+ {"Info3596516576-6050041", 25738, 725},
+ {"Info3596516580-6050041", 25870, 729}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 462, 9, 90, "Title"],
+Cell[1044, 33, 258, 3, 31, "Subtitle"],
+Cell[1305, 38, 149, 2, 42, "Date"],
+Cell[CellGroupData[{
+Cell[1479, 44, 99, 2, 82, "Section",
+ CellID->509267359],
+Cell[1581, 48, 315, 5, 30, "Text",
+ CellID->1534169418],
+Cell[1899, 55, 207, 4, 37, "Input"],
+Cell[2109, 61, 577, 11, 49, "Text",
+ CellID->669104544],
+Cell[CellGroupData[{
+Cell[2711, 76, 517, 9, 55, "Input",
+ CellID->2058623809],
+Cell[3231, 87, 528, 9, 55, "Output"],
+Cell[3762, 98, 894, 15, 72, "Output"]
+}, Open  ]],
+Cell[4671, 116, 310, 6, 30, "Text"],
+Cell[CellGroupData[{
+Cell[5006, 126, 124, 2, 37, "Input"],
+Cell[5133, 130, 366, 6, 146, "Print",
+ CellTags->"Info3596533880-8049425"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5536, 141, 120, 2, 37, "Input"],
+Cell[5659, 145, 204, 4, 42, "Print",
+ CellTags->"Info3596533895-8049425"]
+}, Open  ]],
+Cell[5878, 152, 369, 7, 49, "Text",
+ CellID->1122420826],
+Cell[CellGroupData[{
+Cell[6272, 163, 841, 23, 106, "Input",
+ CellID->1756353130],
+Cell[7116, 188, 665, 18, 39, "Print",
+ CellID->1263710368],
+Cell[7784, 208, 761, 13, 89, "Output",
+ CellID->566886146],
+Cell[8548, 223, 888, 15, 89, "Output",
+ CellID->1417997730]
+}, Open  ]],
+Cell[9451, 241, 215, 3, 30, "Text",
+ CellID->1215446818],
+Cell[CellGroupData[{
+Cell[9691, 248, 365, 7, 106, "Input",
+ CellID->1150219862],
+Cell[10059, 257, 188, 3, 37, "Output",
+ CellID->1661817351],
+Cell[CellGroupData[{
+Cell[10272, 264, 198, 5, 39, "Print",
+ CellTags->"Info3596516574-6050041",
+ CellID->2139389022],
+Cell[10473, 271, 211, 5, 42, "Print",
+ CellTags->"Info3596516575-6050041",
+ CellID->1392591033],
+Cell[10687, 278, 190, 4, 42, "Print",
+ CellTags->"Info3596516575-6050041",
+ CellID->2000706625],
+Cell[10880, 284, 222, 5, 42, "Print",
+ CellTags->"Info3596516576-6050041",
+ CellID->577301649]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11151, 295, 129, 3, 37, "Input",
+ CellID->905457823],
+Cell[11283, 300, 207, 5, 42, "Print",
+ CellTags->"Info3596516580-6050041",
+ CellID->377697597]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11527, 310, 442, 12, 55, "Input",
+ CellID->1389635498],
+Cell[11972, 324, 347, 8, 89, "Output",
+ CellID->1852247],
+Cell[12322, 334, 438, 11, 89, "Output",
+ CellID->1065944271]
+}, Open  ]],
+Cell[12775, 348, 326, 7, 30, "Text",
+ CellID->429379588],
+Cell[13104, 357, 261, 6, 30, "Text",
+ CellID->1681959032],
+Cell[13368, 365, 322, 7, 30, "Text",
+ CellID->1358205363],
+Cell[CellGroupData[{
+Cell[13715, 376, 1996, 59, 123, "Input",
+ CellID->1572274389],
+Cell[15714, 437, 362, 8, 23, "Message",
+ CellID->1016779423],
+Cell[16079, 447, 363, 8, 23, "Message",
+ CellID->1484383182],
+Cell[16445, 457, 398, 8, 39, "Message",
+ CellID->710612675],
+Cell[16846, 467, 399, 8, 39, "Message",
+ CellID->1110667758],
+Cell[17248, 477, 399, 8, 39, "Message",
+ CellID->1065148982],
+Cell[17650, 487, 338, 8, 23, "Message",
+ CellID->535259082]
+}, Open  ]],
+Cell[18003, 498, 205, 3, 30, "Text",
+ CellID->1753851978],
+Cell[CellGroupData[{
+Cell[18233, 505, 686, 19, 123, "Input",
+ CellID->629655524],
+Cell[18922, 526, 228, 5, 58, "Output",
+ CellID->290393891],
+Cell[19153, 533, 229, 5, 58, "Output",
+ CellID->1567280053]
+}, Open  ]],
+Cell[19397, 541, 486, 9, 49, "Text",
+ CellID->1043407206],
+Cell[CellGroupData[{
+Cell[19908, 554, 592, 15, 89, "Input",
+ CellID->1712302728],
+Cell[20503, 571, 331, 8, 23, "Message",
+ CellID->241436669],
+Cell[20837, 581, 318, 8, 23, "Message",
+ CellID->1229486700]
+}, Open  ]],
+Cell[21170, 592, 607, 11, 49, "Text",
+ CellID->203848836],
+Cell[CellGroupData[{
+Cell[21802, 607, 1454, 38, 225, "Input",
+ CellID->193449840],
+Cell[23259, 647, 165, 4, 41, "Output",
+ CellID->895315466],
+Cell[23427, 653, 163, 4, 41, "Output",
+ CellID->149122533],
+Cell[23593, 659, 163, 4, 41, "Output",
+ CellID->188996082],
+Cell[23759, 665, 163, 4, 41, "Output",
+ CellID->328836261]
+}, Open  ]],
+Cell[23937, 672, 341, 6, 30, "Text",
+ CellID->1017453647]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24315, 683, 143, 2, 82, "Section"],
+Cell[24461, 687, 238, 4, 24, "Item"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

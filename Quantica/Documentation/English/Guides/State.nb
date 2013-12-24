@@ -1,0 +1,190 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      5867,        181]
+NotebookOptionsPosition[      4811,        142]
+NotebookOutlinePosition[      5249,        159]
+CellTagsIndexPosition[      5206,        156]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[ButtonBox["Quantica",
+ BaseStyle->"Hyperlink",
+ ButtonData->{"Quantica.nb", None}]], "Title",
+ CellChangeTimes->{{3.596499764760356*^9, 3.596499813798032*^9}, {
+  3.596500181439262*^9, 3.596500182044181*^9}, {3.596500216015832*^9, 
+  3.596500216020207*^9}}],
+
+Cell["Calculator of quantum systems with mathematica", "Subtitle",
+ CellChangeTimes->{{3.594875887880175*^9, 3.5948759200501432`*^9}, {
+   3.5953106987840242`*^9, 3.595310701421096*^9}, 3.596497477243435*^9, {
+   3.596500315870736*^9, 3.596500318799213*^9}}],
+
+Cell["20 December, 2013", "Date",
+ CellChangeTimes->{{3.596500330669463*^9, 3.596500345844017*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Quantica", "Section",
+ CellChangeTimes->{{3.5964979456130123`*^9, 3.5964979487837963`*^9}}],
+
+Cell["\:72b6\:614b(\:30d9\:30af\:30c8\:30eb)\:306b\:95a2\:3059\:308b\:30d1\
+\:30c3\:30b1\:30fc\:30b8", "Text",
+ CellChangeTimes->{3.5965009147179193`*^9}],
+
+Cell[CellGroupData[{
+
+Cell["\:95a2\:6570", "Subsection",
+ CellChangeTimes->{3.59649822982267*^9}],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`Zero"], "InlineGuideFunction"],
+ " \[LongDash] \:5168\:3066\:306e\:6210\:5206\:304c\:30bc\:30ed\:306e\:30d9\
+\:30af\:30c8\:30eb"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498270535976*^9}, 
+   3.5965009294492903`*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`Unit"], "InlineGuideFunction"],
+ " \[LongDash] n\:756a\:76ee\:306e\:8981\:7d20\:304c1\:3067\:305d\:308c\:4ee5\
+\:5916\:304c1\:306e\:30d9\:30af\:30c8\:30eb"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.5964982772352448`*^9}, 
+   3.596500934770318*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`CS"], "InlineGuideFunction"],
+ " \[LongDash] coherent state"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.59649828268087*^9}, 
+   3.59650094196896*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`MirrorTr"], "InlineGuideFunction"],
+ " \[LongDash] \:30d9\:30af\:30c8\:30eb\:306e\:93e1\:50cf\:5909\:63db\:3092\
+\:884c\:3044\:307e\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498288889903*^9}, 
+   3.5965009472008877`*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`MirrorParity"], "InlineGuideFunction"],
+ " \[LongDash] \:93e1\:50cf\:5909\:63db\:306b\:5bfe\:3059\:308bparity\:3092\
+\:8abf\:3079\:307e\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.5964982940448236`*^9}, 
+   3.596500954557831*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`TranslationTr"], "InlineGuideFunction"],
+ " \[LongDash] \:30d9\:30af\:30c8\:30eb\:306e\:4e26\:9032\:5909\:63db\:3092\
+\:884c\:3044\:307e\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498298926712*^9}, 
+   3.596500961893355*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`TranslationParity"], "InlineGuideFunction"],
+ " \[LongDash] \:4e26\:9032\:5909\:63db\:306b\:5bfe\:3059\:308b\:30d1\:30ea\
+\:30c6\:30a3\:30fc\:3092\:8abf\:3079\:307e\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498305174527*^9}, 
+   3.596500967585279*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`Q2P"], "InlineGuideFunction"],
+ " \[LongDash] q\:8868\:793a\:306e\:6ce2\:52d5\:95a2\:6570\:3092P\:8868\:793a\
+\:306b\:5909\:63db\:3057\:307e\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498309592095*^9}, 
+   3.596500972772518*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Quantica`State`Abs2"], "InlineGuideFunction"],
+ " \[LongDash] \:6ce2\:52d5\:95a2\:6570\:306e\:7d76\:5bfe\:5024\:306e\:ff12\
+\:4e57\:3092\:6c42\:3081\:307e\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498315958378*^9}, 
+   3.59650097952205*^9}],
+
+Cell[TextData[{
+ Cell[BoxData["Overlap"], "InlineGuideFunction"],
+ " \[LongDash] \:30d9\:30af\:30c8\:30eb\:306e\:91cd\:306a\:308a\:7a4d\:5206\
+\:3092\:8fd4\:3059"
+}], "Item",
+ CellChangeTimes->{{3.596498244882761*^9, 3.596498316234631*^9}}]
+}, Open  ]],
+
+Cell["\<\
+\:3053\:306e\:30d1\:30c3\:30b1\:30fc\:30b8\:306fQuantica`Setting\:3092\:5b9f\
+\:884c\:5f8c\:306b\:4f7f\:3048\:308b\:69d8\:306b\:306a\:308a\:307e\:3059\
+\>", "Text",
+ CellChangeTimes->{{3.59650024090842*^9, 3.596500267691358*^9}, {
+  3.59650098688525*^9, 3.596500994176284*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{362, Automatic}, {Automatic, 109}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (2013\:5e741\
+\:670828\:65e5)",
+StyleDefinitions->FrontEnd`FileName[{"Report"}, "StandardReport.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 271, 5, 90, "Title"],
+Cell[853, 29, 258, 3, 31, "Subtitle"],
+Cell[1114, 34, 99, 1, 42, "Date"],
+Cell[CellGroupData[{
+Cell[1238, 39, 97, 1, 82, "Section"],
+Cell[1338, 42, 154, 2, 30, "Text"],
+Cell[CellGroupData[{
+Cell[1517, 48, 75, 1, 32, "Subsection"],
+Cell[CellGroupData[{
+Cell[1617, 53, 280, 6, 24, "Item"],
+Cell[1900, 61, 307, 6, 24, "Item"],
+Cell[2210, 69, 208, 5, 24, "Item"],
+Cell[2421, 76, 290, 6, 24, "Item"],
+Cell[2714, 84, 294, 6, 24, "Item"],
+Cell[3011, 92, 293, 6, 24, "Item"],
+Cell[3307, 100, 321, 6, 24, "Item"],
+Cell[3631, 108, 297, 6, 24, "Item"],
+Cell[3931, 116, 295, 6, 24, "Item"],
+Cell[4229, 124, 240, 5, 24, "Item"]
+}, Open  ]],
+Cell[4484, 132, 287, 5, 30, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
