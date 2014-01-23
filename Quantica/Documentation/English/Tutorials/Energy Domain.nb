@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     54271,       1437]
-NotebookOptionsPosition[     49556,       1280]
-NotebookOutlinePosition[     51184,       1330]
-CellTagsIndexPosition[     50930,       1321]
+NotebookDataLength[     55449,       1463]
+NotebookOptionsPosition[     50656,       1304]
+NotebookOutlinePosition[     52284,       1354]
+CellTagsIndexPosition[     52030,       1345]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -112,11 +112,15 @@ Cell["\:3067\:3042\:308b\:ff0e", "Text",
  CellChangeTimes->{{3.5964871490408897`*^9, 3.596487150623785*^9}},
  CellID->1320736243],
 
+Cell[BoxData[
+ RowBox[{"Exit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.598066856284301*^9, 3.598066858029347*^9}}],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"Needs", "[", "\"\<Quantica`\>\"", "]"}], 
+  RowBox[{"Get", "[", "\"\<Quantica`\>\"", "]"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Quantica`MP`dps", "=", "20"}], ";"}], "\[IndentingNewLine]", 
@@ -151,7 +155,7 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{
    RowBox[{"Ham", "=", 
-    RowBox[{"Quantica`FourierBase`Hamiltonian", "[", "]"}]}], ";"}], 
+    RowBox[{"FourierBase`Hamiltonian", "[", "]"}]}], ";"}], 
   "\n"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
@@ -175,7 +179,7 @@ Cell[BoxData[{
   3.596487487183309*^9, 3.596487492841222*^9}, {3.596487569397539*^9, 
   3.596487587959044*^9}, {3.5964876581360273`*^9, 3.59648766175747*^9}, {
   3.596595711983529*^9, 3.59659571494285*^9}, {3.596599636529751*^9, 
-  3.596599636757526*^9}},
+  3.596599636757526*^9}, {3.597728577563715*^9, 3.597728591715581*^9}},
  CellID->1223060709],
 
 Cell[CellGroupData[{
@@ -192,7 +196,9 @@ Cell[BoxData[
       RowBox[{
        RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "}"}], ",", "\<\"Tau:\"\>", 
    ",", "1", ",", "\<\"dps:\"\>", ",", "20"}], "}"}]], "Print",
- CellChangeTimes->{3.596595730909054*^9}],
+ CellChangeTimes->{
+  3.596595730909054*^9, {3.597728586327985*^9, 3.597728601666348*^9}, 
+   3.5980668636821404`*^9, 3.598066923426642*^9, 3.598151292163278*^9}],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -204,7 +210,9 @@ Cell[BoxData[
    "3.50000000000000000000268675423811350005`19.560704309917213", ",", 
    "4.49999999999999999992094333820877913344`19.560704309917213"}], 
   "}"}]], "Print",
- CellChangeTimes->{3.596595731183613*^9}]
+ CellChangeTimes->{
+  3.596595730909054*^9, {3.597728586327985*^9, 3.597728601666348*^9}, 
+   3.5980668636821404`*^9, 3.598066923426642*^9, 3.598151292535623*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -512,7 +520,9 @@ O4nK7avLsXKCncK51sLjFzeT7DQWp0eN/FKKnUH4Q21BPZ1mZ7FWHYre+5Rh
   PlotRangeClipping->True,
   PlotRangePadding->{{0.8, 0.8}, {1.0989602682683803`, 
    1.0989602682683803`}}]], "Output",
- CellChangeTimes->{3.596502790959713*^9, 3.596595737736126*^9}]
+ CellChangeTimes->{
+  3.596502790959713*^9, 3.596595737736126*^9, {3.598066875273089*^9, 
+   3.598066889933134*^9}, 3.598066930863223*^9, 3.598151295449748*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -548,7 +558,7 @@ Cell[BoxData[{
          RowBox[{"[", "1", "]"}], "]"}], "[", 
         RowBox[{"[", "i", "]"}], "]"}], ",", 
        RowBox[{
-        RowBox[{"Quantica`State`Abs2", "[", " ", 
+        RowBox[{"State`Abs2", "[", " ", 
          RowBox[{
           RowBox[{"evecs", "[", 
            RowBox[{"[", "n", "]"}], "]"}], "[", 
@@ -576,7 +586,8 @@ Cell[BoxData[{
   3.59648528714811*^9}, {3.5964853291399107`*^9, 3.59648554196237*^9}, {
   3.596485588993689*^9, 3.5964856574265213`*^9}, {3.5964857374170933`*^9, 
   3.596485916424205*^9}, {3.59648609562493*^9, 3.596486120481291*^9}, {
-  3.5964861595307913`*^9, 3.596486280195567*^9}},
+  3.5964861595307913`*^9, 3.596486280195567*^9}, {3.598066936847458*^9, 
+  3.598066937791754*^9}},
  CellID->1421467309],
 
 Cell[BoxData[
@@ -801,7 +812,9 @@ Je/XArSMHFc=
   AxesOrigin->{0., 0.},
   Method->{},
   PlotRangeClipping->True]], "Output",
- CellChangeTimes->{3.5965027931236887`*^9, 3.596595739989585*^9}]
+ CellChangeTimes->{3.5965027931236887`*^9, 3.596595739989585*^9, 
+  3.597728606297513*^9, 3.598066885305059*^9, 3.5980669432583523`*^9, 
+  3.598151298617733*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -815,20 +828,20 @@ Cell[BoxData[{
  RowBox[{"?", "Quantica`MP`dps"}], "\[IndentingNewLine]", 
  RowBox[{"?", "QuanticaSetting"}], "\[IndentingNewLine]", 
  RowBox[{"?", "SetSystem"}], "\[IndentingNewLine]", 
- RowBox[{"?", "Quantica`FourierBase`Hamiltonian"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "FourierBase`Hamiltonian"}], "\[IndentingNewLine]", 
  RowBox[{"?", "Eigen"}]}], "Input",
  CellChangeTimes->{{3.5965021560358973`*^9, 3.596502198300611*^9}, 
    3.5965022593292923`*^9, {3.596502338105628*^9, 3.596502535576518*^9}, {
    3.596502579566875*^9, 3.596502607595991*^9}, {3.59650286245033*^9, 
-   3.5965028707303257`*^9}}],
+   3.5965028707303257`*^9}, {3.597728611604334*^9, 3.59772861254884*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  StyleBox["\<\"the decimal precision (defalt 20)\"\>", "MSG"]], "Print", \
 "PrintUsage",
- CellChangeTimes->{3.59659574716005*^9},
- CellTags->"Info3596628146-6711735"],
+ CellChangeTimes->{3.598066951659631*^9},
+ CellTags->"Info3598099351-2182233"],
 
 Cell[BoxData[
  StyleBox["\<\"QuanticaSetting[dim, domain, tau=1 ],\\n\\ndim: real \
@@ -837,26 +850,26 @@ integer\\n\\ndomain: 2x2 list such as {{qmin,qmax}, {pmin,pmax}}. \
 \:3070\:306a\:3089\:306a\:3044\\n,\\ntau:(optional) \:7cbe\:5ea6\:306f\
 \[Infinity]\:3067\:306a\:3051\:308c\:3070\:306a\:3089\:306a\:3044\\n\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellChangeTimes->{3.596595747552374*^9},
- CellTags->"Info3596628147-6711735"],
+ CellChangeTimes->{3.598066952146081*^9},
+ CellTags->"Info3598099351-2182233"],
 
 Cell[BoxData[
  StyleBox["\<\"SetSystem[T,V]: Kinetic function and Potential function\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellChangeTimes->{3.59659574789639*^9},
- CellTags->"Info3596628147-6711735"],
+ CellChangeTimes->{3.5980669526296787`*^9},
+ CellTags->"Info3598099352-2182233"],
 
 Cell[BoxData[
  StyleBox["\<\"return Hamilton matrix <q'|H(q,p)|q>\"\>", "MSG"]], "Print", \
 "PrintUsage",
- CellChangeTimes->{3.5965957482147512`*^9},
- CellTags->"Info3596628148-6711735"],
+ CellChangeTimes->{3.5980669529926443`*^9},
+ CellTags->"Info3598099352-2182233"],
 
 Cell[BoxData[
  StyleBox["\<\"{evalues,evectors}=Eigen[mat,sort:True]\\n return eigenvalue \
 and eigenvectors\"\>", "MSG"]], "Print", "PrintUsage",
- CellChangeTimes->{3.59659574856289*^9},
- CellTags->"Info3596628148-6711735"]
+ CellChangeTimes->{3.598066953360817*^9},
+ CellTags->"Info3598099353-2182233"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -958,11 +971,15 @@ Cell["\:3092\:8003\:3048\:308b.", "Text",
  CellChangeTimes->{{3.5964869008500147`*^9, 3.5964869160251627`*^9}},
  CellID->28654648],
 
+Cell[BoxData[
+ RowBox[{"Exit", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.5980669577237053`*^9, 3.5980669589213448`*^9}}],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"Needs", "[", "\"\<Quantica`\>\"", "]"}], 
+  RowBox[{"Get", "[", "\"\<Quantica`\>\"", "]"}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Quantica`MP`dps", "=", "20"}], ";"}], "\[IndentingNewLine]", 
@@ -1000,7 +1017,7 @@ Cell[BoxData[{
    RowBox[{"T", ",", "V"}], "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"mat", " ", "=", " ", 
-   RowBox[{"Quantica`Qmap`Unitary", "[", "]"}]}], ";"}], "\n", 
+   RowBox[{"Qmap`Unitary", "[", "]"}]}], ";"}], "\n", 
  RowBox[{
   RowBox[{
    RowBox[{"{", 
@@ -1009,7 +1026,8 @@ Cell[BoxData[{
   ";"}], "\[IndentingNewLine]"}], "Input",
  CellChangeTimes->{{3.596486934506069*^9, 3.596487027704496*^9}, {
   3.596487608529934*^9, 3.59648760875102*^9}, {3.5965957007868977`*^9, 
-  3.596595705954617*^9}, {3.596902355194251*^9, 3.5969023556957903`*^9}},
+  3.596595705954617*^9}, {3.596902355194251*^9, 3.5969023556957903`*^9}, {
+  3.59772862124625*^9, 3.597728629740159*^9}},
  CellID->562332008],
 
 Cell[BoxData[
@@ -1022,7 +1040,9 @@ Cell[BoxData[
      RowBox[{"{", 
       RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", "\<\"Tau:\"\>", ",", "1", 
    ",", "\<\"dps:\"\>", ",", "20"}], "}"}]], "Print",
- CellChangeTimes->{3.596503061397821*^9, 3.596595750945842*^9}]
+ CellChangeTimes->{
+  3.596503061397821*^9, 3.596595750945842*^9, {3.597728626962496*^9, 
+   3.59772866598323*^9}, 3.598066969303501*^9, 3.59815131502859*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1050,7 +1070,8 @@ Cell[BoxData[
     RowBox[{"{", 
      RowBox[{"245", ",", "245"}], "}"}]}], ",", 
    RowBox[{"AspectRatio", "\[Rule]", "Full"}]}], "]"}]], "Input",
- CellChangeTimes->{{3.596487065402133*^9, 3.596487067976328*^9}},
+ CellChangeTimes->{{3.596487065402133*^9, 3.596487067976328*^9}, 
+   3.597728670558313*^9},
  CellID->1147669516],
 
 Cell[BoxData[
@@ -1204,7 +1225,7 @@ a5/CYKtUCAFGFpWH3eWwOdhQQ/cRgqlVMe0CWQntWYv2ufJZvDfqq9ymErDA
   PlotRangeClipping->True,
   PlotRangePadding->{{0.03996020443324411, 0.03996020443324411}, {
    0.03946686986981942, 0.03946686986981942}}]], "Output",
- CellChangeTimes->{3.596503064621207*^9, 3.596595757104021*^9}]
+ CellChangeTimes->{3.598151320450439*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1218,46 +1239,49 @@ Cell[BoxData[{
  RowBox[{"?", "Quantica`MP`dps"}], "\[IndentingNewLine]", 
  RowBox[{"?", "QuanticaSetting"}], "\[IndentingNewLine]", 
  RowBox[{"?", "SetSystem"}], "\[IndentingNewLine]", 
- RowBox[{"?", "Quantica`Qmap`Unitary"}], "\[IndentingNewLine]", 
+ RowBox[{"?", "Qmap`Unitary"}], "\[IndentingNewLine]", 
  RowBox[{"?", "Eigen"}]}], "Input",
  CellChangeTimes->{{3.5965021560358973`*^9, 3.596502198300611*^9}, 
    3.5965022593292923`*^9, {3.596502338105628*^9, 3.596502535576518*^9}, {
    3.596502579566875*^9, 3.596502607595991*^9}, {3.59650286245033*^9, 
-   3.5965028707303257`*^9}, {3.596503103308358*^9, 3.596503104753428*^9}}],
+   3.5965028707303257`*^9}, {3.596503103308358*^9, 3.596503104753428*^9}, {
+   3.5977286747955523`*^9, 3.597728677236218*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  StyleBox["\<\"the decimal precision (defalt 20)\"\>", "MSG"]], "Print", \
 "PrintUsage",
- CellChangeTimes->{3.596503105379938*^9},
- CellTags->"Info3596535505-7359057"],
+ CellChangeTimes->{3.597728689603731*^9},
+ CellTags->"Info3597761089-6467600"],
 
 Cell[BoxData[
- StyleBox["\<\"QuanticaSetting[dim, domain, tau=1 ],\\n\\ndim: integer >1 and \
-even number,\\n\\ndomain: 2x2 list such as {{qmin,qmax}, {pmin,pmax}}. each \
-variables request a ratoinal value\\n,\\ntau:(optional) rational \
-value\\n\"\>", "MSG"]], "Print", "PrintUsage",
- CellChangeTimes->{3.5965031056789427`*^9},
- CellTags->"Info3596535505-7359057"],
+ StyleBox["\<\"QuanticaSetting[dim, domain, tau=1 ],\\n\\ndim: real \
+integer\\n\\ndomain: 2x2 list such as {{qmin,qmax}, {pmin,pmax}}. \
+\:5404\:5909\:6570\:306e\:7cbe\:5ea6\:306f\[Infinity]\:3067\:306a\:3051\:308c\
+\:3070\:306a\:3089\:306a\:3044\\n,\\ntau:(optional) \:7cbe\:5ea6\:306f\
+\[Infinity]\:3067\:306a\:3051\:308c\:3070\:306a\:3089\:306a\:3044\\n\"\>", 
+  "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.59772868994937*^9},
+ CellTags->"Info3597761089-6467600"],
 
 Cell[BoxData[
  StyleBox["\<\"SetSystem[T,V]: Kinetic function and Potential function\"\>", 
   "MSG"]], "Print", "PrintUsage",
- CellChangeTimes->{3.596503105997087*^9},
- CellTags->"Info3596535505-7359057"],
+ CellChangeTimes->{3.597728690299848*^9},
+ CellTags->"Info3597761090-6467600"],
 
 Cell[BoxData[
  StyleBox["\<\"return unitary matrix <q'|U|q>\"\>", "MSG"]], "Print", \
 "PrintUsage",
- CellChangeTimes->{3.596503106311638*^9},
- CellTags->"Info3596535506-7359057"],
+ CellChangeTimes->{3.597728690648918*^9},
+ CellTags->"Info3597761090-6467600"],
 
 Cell[BoxData[
  StyleBox["\<\"{evalues,evectors}=Eigen[mat,sort:True]\\n return eigenvalue \
 and eigenvectors\"\>", "MSG"]], "Print", "PrintUsage",
- CellChangeTimes->{3.596503106598399*^9},
- CellTags->"Info3596535506-7359057"]
+ CellChangeTimes->{3.597728690983697*^9},
+ CellTags->"Info3597761090-6467600"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -1291,40 +1315,40 @@ StyleDefinitions->FrontEnd`FileName[{"Report"}, "StandardReport.nb",
 (* Internal cache information *)
 (*CellTagsOutline
 CellTagsIndex->{
- "Info3596628146-6711735"->{
-  Cell[33633, 826, 180, 4, 42, "Print",
-   CellTags->"Info3596628146-6711735"]},
- "Info3596628147-6711735"->{
-  Cell[33816, 832, 491, 8, 148, "Print",
-   CellTags->"Info3596628147-6711735"],
-  Cell[34310, 842, 203, 4, 42, "Print",
-   CellTags->"Info3596628147-6711735"]},
- "Info3596628148-6711735"->{
-  Cell[34516, 848, 186, 4, 42, "Print",
-   CellTags->"Info3596628148-6711735"],
-  Cell[34705, 854, 224, 4, 58, "Print",
-   CellTags->"Info3596628148-6711735"]},
- "Info3596535505-7359057"->{
-  Cell[47868, 1229, 181, 4, 42, "Print",
-   CellTags->"Info3596535505-7359057"],
-  Cell[48052, 1235, 366, 6, 146, "Print",
-   CellTags->"Info3596535505-7359057"],
-  Cell[48421, 1243, 204, 4, 42, "Print",
-   CellTags->"Info3596535505-7359057"]},
- "Info3596535506-7359057"->{
-  Cell[48628, 1249, 178, 4, 42, "Print",
-   CellTags->"Info3596535506-7359057"],
-  Cell[48809, 1255, 225, 4, 58, "Print",
-   CellTags->"Info3596535506-7359057"]}
+ "Info3598099351-2182233"->{
+  Cell[34300, 839, 181, 4, 42, "Print",
+   CellTags->"Info3598099351-2182233"],
+  Cell[34484, 845, 491, 8, 148, "Print",
+   CellTags->"Info3598099351-2182233"]},
+ "Info3598099352-2182233"->{
+  Cell[34978, 855, 206, 4, 42, "Print",
+   CellTags->"Info3598099352-2182233"],
+  Cell[35187, 861, 186, 4, 42, "Print",
+   CellTags->"Info3598099352-2182233"]},
+ "Info3598099353-2182233"->{
+  Cell[35376, 867, 225, 4, 58, "Print",
+   CellTags->"Info3598099353-2182233"]},
+ "Info3597761089-6467600"->{
+  Cell[48844, 1251, 181, 4, 42, "Print",
+   CellTags->"Info3597761089-6467600"],
+  Cell[49028, 1257, 490, 8, 148, "Print",
+   CellTags->"Info3597761089-6467600"]},
+ "Info3597761090-6467600"->{
+  Cell[49521, 1267, 204, 4, 42, "Print",
+   CellTags->"Info3597761090-6467600"],
+  Cell[49728, 1273, 178, 4, 42, "Print",
+   CellTags->"Info3597761090-6467600"],
+  Cell[49909, 1279, 225, 4, 58, "Print",
+   CellTags->"Info3597761090-6467600"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"Info3596628146-6711735", 49979, 1293},
- {"Info3596628147-6711735", 50089, 1296},
- {"Info3596628148-6711735", 50280, 1301},
- {"Info3596535505-7359057", 50470, 1306},
- {"Info3596535506-7359057", 50744, 1313}
+ {"Info3598099351-2182233", 51079, 1317},
+ {"Info3598099352-2182233", 51270, 1322},
+ {"Info3598099353-2182233", 51460, 1327},
+ {"Info3597761089-6467600", 51570, 1330},
+ {"Info3597761090-6467600", 51763, 1335}
  }
 *)
 (*NotebookFileOutline
@@ -1351,92 +1375,94 @@ Cell[3296, 94, 511, 14, 25, "DisplayFormula",
  CellID->2116130030],
 Cell[3810, 110, 129, 2, 30, "Text",
  CellID->1320736243],
+Cell[3942, 114, 118, 2, 37, "Input"],
 Cell[CellGroupData[{
-Cell[3964, 116, 2289, 62, 242, "Input",
+Cell[4085, 120, 2324, 62, 242, "Input",
  CellID->1223060709],
 Cell[CellGroupData[{
-Cell[6278, 182, 428, 12, 22, "Print"],
-Cell[6709, 196, 477, 10, 37, "Print"]
+Cell[6434, 186, 549, 14, 22, "Print"],
+Cell[6986, 202, 598, 12, 37, "Print"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7235, 212, 1123, 33, 89, "Input",
+Cell[7633, 220, 1123, 33, 89, "Input",
  CellID->1444176929],
-Cell[8361, 247, 10331, 267, 269, "Output"]
+Cell[8759, 255, 10428, 269, 269, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[18729, 519, 2188, 60, 140, "Input",
+Cell[19224, 529, 2228, 61, 140, "Input",
  CellID->1421467309],
-Cell[20920, 581, 11947, 222, 253, "Output"]
+Cell[21455, 592, 12043, 224, 253, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[32904, 808, 139, 1, 31, "Subsubsection"],
+Cell[33535, 821, 139, 1, 31, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[33068, 813, 540, 9, 106, "Input"],
+Cell[33699, 826, 576, 9, 106, "Input"],
 Cell[CellGroupData[{
-Cell[33633, 826, 180, 4, 42, "Print",
- CellTags->"Info3596628146-6711735"],
-Cell[33816, 832, 491, 8, 148, "Print",
- CellTags->"Info3596628147-6711735"],
-Cell[34310, 842, 203, 4, 42, "Print",
- CellTags->"Info3596628147-6711735"],
-Cell[34516, 848, 186, 4, 42, "Print",
- CellTags->"Info3596628148-6711735"],
-Cell[34705, 854, 224, 4, 58, "Print",
- CellTags->"Info3596628148-6711735"]
+Cell[34300, 839, 181, 4, 42, "Print",
+ CellTags->"Info3598099351-2182233"],
+Cell[34484, 845, 491, 8, 148, "Print",
+ CellTags->"Info3598099351-2182233"],
+Cell[34978, 855, 206, 4, 42, "Print",
+ CellTags->"Info3598099352-2182233"],
+Cell[35187, 861, 186, 4, 42, "Print",
+ CellTags->"Info3598099352-2182233"],
+Cell[35376, 867, 225, 4, 58, "Print",
+ CellTags->"Info3598099353-2182233"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[35002, 866, 104, 1, 32, "Subsection"],
-Cell[35109, 869, 245, 4, 30, "Text",
+Cell[35674, 879, 104, 1, 32, "Subsection"],
+Cell[35781, 882, 245, 4, 30, "Text",
  CellID->1992973135],
-Cell[35357, 875, 688, 21, 47, "DisplayFormula",
+Cell[36029, 888, 688, 21, 47, "DisplayFormula",
  CellID->1597037686],
-Cell[36048, 898, 305, 5, 30, "Text",
+Cell[36720, 911, 305, 5, 30, "Text",
  CellID->14284749],
-Cell[36356, 905, 671, 22, 48, "DisplayFormula",
+Cell[37028, 918, 671, 22, 48, "DisplayFormula",
  CellID->1713091626],
-Cell[37030, 929, 228, 3, 30, "Text",
+Cell[37702, 942, 228, 3, 30, "Text",
  CellID->617702853],
-Cell[37261, 934, 598, 20, 60, "DisplayFormula",
+Cell[37933, 947, 598, 20, 60, "DisplayFormula",
  CellID->795900773],
-Cell[37862, 956, 130, 2, 30, "Text",
+Cell[38534, 969, 130, 2, 30, "Text",
  CellID->28654648],
+Cell[38667, 973, 122, 2, 37, "Input"],
 Cell[CellGroupData[{
-Cell[38017, 962, 1706, 50, 225, "Input",
+Cell[38814, 979, 1743, 51, 225, "Input",
  CellID->562332008],
-Cell[39726, 1014, 404, 10, 22, "Print"]
+Cell[40560, 1032, 499, 12, 22, "Print"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40167, 1029, 850, 24, 72, "Input",
+Cell[41096, 1049, 876, 25, 72, "Input",
  CellID->1147669516],
-Cell[41020, 1055, 6047, 151, 269, "Output"]
+Cell[41975, 1076, 6025, 151, 303, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[47104, 1211, 139, 1, 31, "Subsubsection"],
+Cell[48037, 1232, 139, 1, 31, "Subsubsection"],
 Cell[CellGroupData[{
-Cell[47268, 1216, 575, 9, 106, "Input"],
+Cell[48201, 1237, 618, 10, 106, "Input"],
 Cell[CellGroupData[{
-Cell[47868, 1229, 181, 4, 42, "Print",
- CellTags->"Info3596535505-7359057"],
-Cell[48052, 1235, 366, 6, 146, "Print",
- CellTags->"Info3596535505-7359057"],
-Cell[48421, 1243, 204, 4, 42, "Print",
- CellTags->"Info3596535505-7359057"],
-Cell[48628, 1249, 178, 4, 42, "Print",
- CellTags->"Info3596535506-7359057"],
-Cell[48809, 1255, 225, 4, 58, "Print",
- CellTags->"Info3596535506-7359057"]
+Cell[48844, 1251, 181, 4, 42, "Print",
+ CellTags->"Info3597761089-6467600"],
+Cell[49028, 1257, 490, 8, 148, "Print",
+ CellTags->"Info3597761089-6467600"],
+Cell[49521, 1267, 204, 4, 42, "Print",
+ CellTags->"Info3597761090-6467600"],
+Cell[49728, 1273, 178, 4, 42, "Print",
+ CellTags->"Info3597761090-6467600"],
+Cell[49909, 1279, 225, 4, 58, "Print",
+ CellTags->"Info3597761090-6467600"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[49119, 1268, 98, 1, 82, "Section"],
-Cell[49220, 1271, 308, 5, 24, "Item"]
+Cell[50219, 1292, 98, 1, 82, "Section"],
+Cell[50320, 1295, 308, 5, 24, "Item"]
 }, Open  ]]
 }, Open  ]]
 }

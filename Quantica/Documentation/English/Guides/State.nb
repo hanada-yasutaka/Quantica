@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      5867,        181]
-NotebookOptionsPosition[      4811,        142]
-NotebookOutlinePosition[      5249,        159]
-CellTagsIndexPosition[      5206,        156]
+NotebookDataLength[      5921,        173]
+NotebookOptionsPosition[      4902,        135]
+NotebookOutlinePosition[      5340,        152]
+CellTagsIndexPosition[      5297,        149]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -52,82 +52,75 @@ Cell["\:95a2\:6570", "Subsection",
 Cell[CellGroupData[{
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`Zero"], "InlineGuideFunction"],
+ Cell[BoxData["State`Zero"], "InlineGuideFunction"],
  " \[LongDash] \:5168\:3066\:306e\:6210\:5206\:304c\:30bc\:30ed\:306e\:30d9\
 \:30af\:30c8\:30eb"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.596498270535976*^9}, 
-   3.5965009294492903`*^9}],
+   3.5965009294492903`*^9, {3.598317554352003*^9, 3.59831755435205*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`Unit"], "InlineGuideFunction"],
+ Cell[BoxData["State`Unit"], "InlineGuideFunction"],
  " \[LongDash] n\:756a\:76ee\:306e\:8981\:7d20\:304c1\:3067\:305d\:308c\:4ee5\
 \:5916\:304c1\:306e\:30d9\:30af\:30c8\:30eb"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.5964982772352448`*^9}, 
-   3.596500934770318*^9}],
+   3.596500934770318*^9, {3.598317557356131*^9, 3.598317568902378*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`CS"], "InlineGuideFunction"],
+ Cell[BoxData["State`CS"], "InlineGuideFunction"],
  " \[LongDash] coherent state"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.59649828268087*^9}, 
-   3.59650094196896*^9}],
+   3.59650094196896*^9, {3.598317571153743*^9, 3.598317572403318*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`MirrorTr"], "InlineGuideFunction"],
+ Cell[BoxData["State`MirrorTr"], "InlineGuideFunction"],
  " \[LongDash] \:30d9\:30af\:30c8\:30eb\:306e\:93e1\:50cf\:5909\:63db\:3092\
 \:884c\:3044\:307e\:3059"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.596498288889903*^9}, 
-   3.5965009472008877`*^9}],
+   3.5965009472008877`*^9, {3.598317574624683*^9, 3.598317576875531*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`MirrorParity"], "InlineGuideFunction"],
+ Cell[BoxData["State`MirrorParity"], "InlineGuideFunction"],
  " \[LongDash] \:93e1\:50cf\:5909\:63db\:306b\:5bfe\:3059\:308bparity\:3092\
 \:8abf\:3079\:307e\:3059"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.5964982940448236`*^9}, 
-   3.596500954557831*^9}],
+   3.596500954557831*^9, {3.598317578980671*^9, 3.598317584419167*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`TranslationTr"], "InlineGuideFunction"],
+ Cell[BoxData["State`TranslationTr"], "InlineGuideFunction"],
  " \[LongDash] \:30d9\:30af\:30c8\:30eb\:306e\:4e26\:9032\:5909\:63db\:3092\
 \:884c\:3044\:307e\:3059"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.596498298926712*^9}, 
-   3.596500961893355*^9}],
+   3.596500961893355*^9, {3.598317591760701*^9, 3.598317593210967*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`TranslationParity"], "InlineGuideFunction"],
+ Cell[BoxData["State`TranslationParity"], "InlineGuideFunction"],
  " \[LongDash] \:4e26\:9032\:5909\:63db\:306b\:5bfe\:3059\:308b\:30d1\:30ea\
 \:30c6\:30a3\:30fc\:3092\:8abf\:3079\:307e\:3059"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.596498305174527*^9}, 
-   3.596500967585279*^9}],
+   3.596500967585279*^9, {3.598317595562974*^9, 3.598317597999422*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`Q2P"], "InlineGuideFunction"],
+ Cell[BoxData["State`Q2P"], "InlineGuideFunction"],
  " \[LongDash] q\:8868\:793a\:306e\:6ce2\:52d5\:95a2\:6570\:3092P\:8868\:793a\
 \:306b\:5909\:63db\:3057\:307e\:3059"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.596498309592095*^9}, 
-   3.596500972772518*^9}],
+   3.596500972772518*^9, {3.5983175998845663`*^9, 3.598317601169345*^9}}],
 
 Cell[TextData[{
- Cell[BoxData["Quantica`State`Abs2"], "InlineGuideFunction"],
+ Cell[BoxData["State`Abs2"], "InlineGuideFunction"],
  " \[LongDash] \:6ce2\:52d5\:95a2\:6570\:306e\:7d76\:5bfe\:5024\:306e\:ff12\
 \:4e57\:3092\:6c42\:3081\:307e\:3059"
 }], "Item",
  CellChangeTimes->{{3.596498244882761*^9, 3.596498315958378*^9}, 
-   3.59650097952205*^9}],
-
-Cell[TextData[{
- Cell[BoxData["Overlap"], "InlineGuideFunction"],
- " \[LongDash] \:30d9\:30af\:30c8\:30eb\:306e\:91cd\:306a\:308a\:7a4d\:5206\
-\:3092\:8fd4\:3059"
-}], "Item",
- CellChangeTimes->{{3.596498244882761*^9, 3.596498316234631*^9}}]
+   3.59650097952205*^9, {3.5983176037561617`*^9, 3.5983176060745*^9}}]
 }, Open  ]],
 
 Cell["\<\
@@ -168,18 +161,17 @@ Cell[1338, 42, 154, 2, 30, "Text"],
 Cell[CellGroupData[{
 Cell[1517, 48, 75, 1, 32, "Subsection"],
 Cell[CellGroupData[{
-Cell[1617, 53, 280, 6, 24, "Item"],
-Cell[1900, 61, 307, 6, 24, "Item"],
-Cell[2210, 69, 208, 5, 24, "Item"],
-Cell[2421, 76, 290, 6, 24, "Item"],
-Cell[2714, 84, 294, 6, 24, "Item"],
-Cell[3011, 92, 293, 6, 24, "Item"],
-Cell[3307, 100, 321, 6, 24, "Item"],
-Cell[3631, 108, 297, 6, 24, "Item"],
-Cell[3931, 116, 295, 6, 24, "Item"],
-Cell[4229, 124, 240, 5, 24, "Item"]
+Cell[1617, 53, 316, 6, 24, "Item"],
+Cell[1936, 61, 344, 6, 24, "Item"],
+Cell[2283, 69, 245, 5, 24, "Item"],
+Cell[2531, 76, 327, 6, 24, "Item"],
+Cell[2861, 84, 331, 6, 24, "Item"],
+Cell[3195, 92, 330, 6, 24, "Item"],
+Cell[3528, 100, 358, 6, 24, "Item"],
+Cell[3889, 108, 336, 6, 24, "Item"],
+Cell[4228, 116, 332, 6, 24, "Item"]
 }, Open  ]],
-Cell[4484, 132, 287, 5, 30, "Text"]
+Cell[4575, 125, 287, 5, 30, "Text"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

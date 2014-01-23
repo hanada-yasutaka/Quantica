@@ -1,7 +1,7 @@
 Notebook[{
 Cell[TextData[{
  "New in: ",
- Cell["0.0", "HistoryData", CellTags -> "New"],
+ Cell["0.2", "HistoryData", CellTags -> "New"],
  " | Modified in: ",
  Cell[" ", "HistoryData",
   CellTags->"Modified"],
@@ -23,11 +23,11 @@ Cell["Symbol", "Categorization",
  CellLabel->"Entity Type",
  CellID->686433507],
 
-Cell["Quantica1", "Categorization", CellLabel->"Paclet Name", CellID->605800465],
+Cell["Quantica", "Categorization", CellLabel->"Paclet Name", CellID->605800465],
 
-Cell["Quantica1`", "Categorization", CellLabel->"Context", CellID->468444828],
+Cell["Quantica`", "Categorization", CellLabel->"Context", CellID->468444828],
 
-Cell["Quantica1/ref/Quantica", "Categorization", CellLabel->"URI"]
+Cell["Quantica/ref/Quantica", "Categorization", CellLabel->"URI"]
 }, Closed]],
 
 Cell[CellGroupData[{

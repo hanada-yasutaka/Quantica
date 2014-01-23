@@ -11,9 +11,9 @@ Quantica`MP::usage="context of the multiple precision settings"
 dps::usage="the decimal precision (defalt 20)"
 dps=20
 End[]
+
 Get["Quantica`BCH`"]
-
-
+Get["Quantica`Systems`"]
 
 (* infomation *)
 QuanticaSetting::usage = "QuanticaSetting[dim, domain, tau=1 ],\n
@@ -31,12 +31,15 @@ SetSystem::precisionError = "Precision of `1` is MachinePrecision"
 SetSystem::defError = "Function `1` is not defined."
 GetSystem::usage="return [T,V]: Kinetic and Potential term"
 Eigen::usage="{evalues,evectors}=Eigen[mat,sort:True]\n return eigenvalue and eigenvectors"
+ParallelEigen::usage=""
+
 QuasiEnergy::usage="return quasi-energies"
 SortIndex::usage="SortIndex[basis, evecs] <evecs_m|basos_n>が最大の値を返すmをn=0から順に求め，mのリストし返します"
 SortEigen::usage="SortEigen[evals, evecs, index] indexの順番で並び替えされたevalsとevecsを返します"
 InnerProduct::usage="InnerProduct[vec1,vec2]: return <vec1|vec2>"
 InnerProducts::usage="InnerProducts[vec1,basis]:return {<basis[1]|vec2>,<basis[2]|vec2>,...}"
 Overlap::usage="InnerProduct[vec1,vec2]: return |<vec1|vec2>|^2"
+
 
 Dim::usage="Hilbert Space dimension (matrix dimension)"
 Domain::usage="Domain of the phase space {{q interval}, {p interval}}"
@@ -50,22 +53,25 @@ Hbar::usage="effective Planck's constant divided by 2pi"
 Quantica`Help::usage="Helpを開きます"
 Quantica`Help[] := NotebookOpen[ToFileName[{$UserBaseDirectory, "Applications", "Quantica","Documentation", "English", "Guides"}, "Quantica.nb"]]
 
-Quantica`State::usage="Context of quantum states"
-
-
 (* constant *)
 Dim=Dim
 Domain=Domain
 Tau=Tau
+tau=tau
 X=X
 Area=Area  
 Planck=Planck
 Hbar=Hbar
 
+Protect["tau"]
 Begin["`Private`"]
 (*Privateに入れないとNames["Quantica`アスタリスク"]に(局所)変数が表示されてしまうのだ*)
+
+(*QuanticaSetting[dim_, domain_, tau_:1, Verbose_:False] :=  Module[ {},*)
 Options[QuanticaSetting] = {tau->1, Verbose->False}
-QuanticaSetting[dim_, domain_,OptionsPattern[]] :=  Module[ {},
+(*todo:
+    optionの局所変数化*)
+QuanticaSetting[dim_, domain_, OptionsPattern[]] :=  Module[ {},
     Which[
         Not[IntegerQ[dim]], 
                 Message[QuanticaSetting::dimError,dim],
@@ -82,18 +88,21 @@ QuanticaSetting[dim_, domain_,OptionsPattern[]] :=  Module[ {},
         domain[[2]][[1]]>=domain[[2]][[2]],
                 Message[QuanticaSetting::PdomainError,domain[[2]]],
         True,
-            Unprotect[Dim];Unprotect[Domain];Unprotect[Tau];Unprotect[X];
-            Unprotect[Area];Unprotect[Planck];Unprotect[Hbar];
-            Dim=dim; Domain=domain;Tau=OptionValue[tau];X=setX[];
-            Area=setArea[];Planck=setPlanck[];Hbar=setHbar[];
-            Protect[Dim];Protect[Domain];Protect[Tau];Protect[X];
-            If[OptionValue[Verbose]==True,
+            Unprotect["Quantica`*"];
+            Dim=dim; Domain=domain;X=setX[];
+            Area=setArea[];Planck=setPlanck[];Tau=OptionValue[tau];Hbar=setHbar[];
+            (*Quantica`MP`dps=OptionValue[Dps];*)            
+            Print[{"Dim:", Dim,"Domain:",Domain,"Tau:",Tau,"dps:",Quantica`MP`dps}];
+            If[Verbose==True,
                 Print[{"Dim:", Dim,"Domain:",Domain,
                 "Tau:",Tau,"dps:",Quantica`MP`dps}]
             ];
+           
             Get["Quantica`Util`"];
             Get["Quantica`State`"];
-        ];
+            
+    ];
+    Protect["Quantica`*"];
 ]
 GetSystem[]:= {FuncT, FuncV};
 SetSystem[T_, V_] := Module[{},
@@ -132,21 +141,34 @@ Eigen[mat_,OptionsPattern[]] := Module[{index,evals,evecs},
         Return[evals]
     ];
 ]
-QuasiEnergy[evals_]:= Hbar*I*Log[evals]/Tau
-SortIndex[ref_,evecs_]:=Module[{i,ovl,index,indexes},
-    indexes={};
-    For[i=0,i<Length[evecs],i++;
-        ovl = Overlap[evecs,ref[[i]] ];
-        index = Ordering[ovl][[-1]];
-        indexes=Append[indexes,index]
-    ];
-    Return[indexes]
+Options[ParallelEigen] = {Sort->True, Vector->True}
+ParallelEigen[mats_,OptionsPattern[]]:=Module[{i,res,index},
+	If[ OptionValue[Vector],
+		res = ParallelMap[ Eigensystem, mats];	
+		index = Ordering[ Re[res[[#]][[1]]] ] & /@ Range[Length[mats]];
+		For[i=1,i<=Length[mats],i++,
+			res[[i]][[1]] = res[[i]][[1]][[ index[[i]] ]];	
+			res[[i]][[2]] = res[[i]][[2]][[ index[[i]] ]];			
+		],
+		res = ParallelMap[Eigenvalues, mats];
+		index = Ordering[ Re[res[[#]] ] ] & /@ Range[Length[mats]];
+		For[i=1,i<=Length[mats],i++,
+			res[[i]] = res[[i]][[ index[[i]] ]]	
+		];
+	];
+	Return[res];
 ]
+	
+QuasiEnergy[evals_]:= Hbar*I*Log[evals]/Tau
+
+SortIndex[ref_,evecs_]:= Ordering [ Overlap[evecs, ref[[#]] ] ][[-1]] & /@ Range[Dim]
+
 SortEigen[evals_,evecs_,index_]:=Module[{vals,vecs},
     vals=evals[[index]];
     vecs=evecs[[index]];
     Return[{vals,vecs}]
 ]
+
 (* Operation *)
 InnerProduct[vec1_,vec2_] := Inner[Times,Conjugate[vec1],vec2,Plus]
 InnerProducts[vec_, basis_] := Table[InnerProduct[basis[[i]], vec],{i,1,Length[basis]}]
@@ -169,7 +191,7 @@ setPlanck[]:= N[Area/Dim,Quantica`MP`dps]
 setHbar[]  := N[Planck/(2*Pi),Quantica`MP`dps]
 
 
-End[]
+End[](*end private*)
 EndPackage[]
 
 Column[{

@@ -1,18 +1,14 @@
 (* Paclet Info File *)
 
-(* created 2013/12/22*)
+(* created 2014/01/23*)
 
 Paclet[
     Name -> "Quantica",
-    Version -> "0.2.0",
+    Version -> "0.3.2",
     MathematicaVersion -> "6+",
-    Description -> "Calculator of quantum systems with mathematica",
-    Creator -> "Yasutaka Hanada",
     Extensions -> 
         {
-            {"Documentation", Resources -> 
-                {"Guides/Quantica"}
-            , Language -> "English", LinkBase -> "Quantica", MainPage -> "Quantica\n"}
+            {"Documentation", Language -> "English"}
         }
 ]
 

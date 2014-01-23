@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[      9827,        280]
-NotebookOptionsPosition[      8469,        231]
-NotebookOutlinePosition[      8907,        248]
-CellTagsIndexPosition[      8864,        245]
+NotebookDataLength[     10890,        301]
+NotebookOptionsPosition[      9490,        251]
+NotebookOutlinePosition[      9928,        268]
+CellTagsIndexPosition[      9885,        265]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -79,18 +79,21 @@ Cell[TextData[{
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox["Quantica`State",
+  ButtonBox["State`",
    BaseStyle->"Hyperlink",
    ButtonData->{"State.nb", None}]], "InlineGuideFunction"],
  " \[LongDash] \:72b6\:614b(\:30d9\:30af\:30c8\:30eb)\:306b\:95a2\:3059\:308b\
 \:30d1\:30c3\:30b1\:30fc\:30b8"
 }], "Item",
  CellChangeTimes->{{3.59649771625644*^9, 3.596497721296598*^9}, {
-  3.5964977573817377`*^9, 3.596497757385335*^9}}],
+  3.5964977573817377`*^9, 3.596497757385335*^9}, {3.598066018685627*^9, 
+  3.598066032529911*^9}, {3.598066065154759*^9, 3.5980660871742973`*^9}, {
+  3.5980670293413343`*^9, 3.598067029341434*^9}, {3.598150983115292*^9, 
+  3.598150987454797*^9}}],
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox["Quantica`FourierBase",
+  ButtonBox["FourierBase`",
    BaseStyle->"Hyperlink",
    ButtonData->{"FourierBase.nb", None}]], "InlineGuideFunction"],
  " \[LongDash] Fourier\:5909\:63db\:3092\:7528\:3044\:305f\:6f14\:7b97\:5b50\
@@ -98,40 +101,44 @@ Cell[TextData[{
 \:30b8"
 }], "Item",
  CellChangeTimes->{{3.59649771625644*^9, 3.596497721296598*^9}, {
-  3.5964977573817377`*^9, 3.596497772524502*^9}}],
+  3.5964977573817377`*^9, 3.596497772524502*^9}, {3.598066042462102*^9, 
+  3.598066048166068*^9}, {3.5981509906961946`*^9, 3.5981509922606792`*^9}}],
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox["Quantica`Qmap",
+  ButtonBox["Qmap`",
    BaseStyle->"Hyperlink",
    ButtonData->{"Qmap.nb", None}]], "InlineGuideFunction"],
  " \[LongDash] \:91cf\:5b50\:5199\:50cf\:7cfb\:306e\:6f14\:7b97\:5b50\:306e\
 \:884c\:5217\:8868\:73fe\:3092\:6c42\:3081\:308b\:30d1\:30c3\:30b1\:30fc\:30b8"
 }], "Item",
  CellChangeTimes->{{3.59649771625644*^9, 3.596497721296598*^9}, {
-  3.5964977573817377`*^9, 3.596497777747384*^9}}],
+  3.5964977573817377`*^9, 3.596497777747384*^9}, {3.598150998225897*^9, 
+  3.59815100026551*^9}}],
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox["Quantica`Util",
+  ButtonBox["Util`",
    BaseStyle->"Hyperlink",
    ButtonData->{"Util.nb", None}]], "InlineGuideFunction"],
  " \[LongDash] Input Output\:306e\:64cd\:4f5c\:306b\:95a2\:3059\:308b\:30d1\
 \:30c3\:30b1\:30fc\:30b8"
 }], "Item",
  CellChangeTimes->{{3.59649771625644*^9, 3.596497721296598*^9}, {
-  3.5964977573817377`*^9, 3.596497781820479*^9}}],
+  3.5964977573817377`*^9, 3.596497781820479*^9}, {3.598151003966399*^9, 
+  3.5981510082898283`*^9}}],
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox["Quantica`BCH",
+  ButtonBox["BCH`",
    BaseStyle->"Hyperlink",
    ButtonData->{"BCH.nb", None}]], "InlineGuideFunction"],
  " \[LongDash] Baker-Campbell-Hausdorff \:7d1a\:6570\:306e\:64cd\:4f5c\:306b\
 \:95a2\:3059\:308b\:30d1\:30c3\:30b1\:30fc\:30b8"
 }], "Item",
  CellChangeTimes->{{3.59649771625644*^9, 3.596497721296598*^9}, {
-  3.5964977573817377`*^9, 3.596497782061014*^9}}]
+  3.5964977573817377`*^9, 3.596497782061014*^9}, {3.598151011495162*^9, 
+  3.598151014085651*^9}}]
 }, Open  ]]
 }, Open  ]],
 
@@ -210,7 +217,20 @@ Cell[TextData[ButtonBox["Save to text file",
   3.596592976627548*^9, 3.596593000114004*^9}, {3.596593035171713*^9, 
   3.5965930351761436`*^9}, {3.5966044308726273`*^9, 3.596604484241193*^9}, {
   3.596901165292585*^9, 3.5969011962553*^9}, {3.59690124319948*^9, 
-  3.596901243445098*^9}}]
+  3.596901243445098*^9}, {3.598904317439178*^9, 3.598904317445189*^9}}],
+
+Cell[TextData[ButtonBox["Samples",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   FrontEnd`FileName[{
+     ParentDirectory[
+      ParentDirectory[]]}, "Samples.nb", CharacterEncoding -> "UTF-8"], 
+   None}]], "Item",
+ CellChangeTimes->{{3.59649865528233*^9, 3.596498666402494*^9}, {
+  3.596592976627548*^9, 3.596593000114004*^9}, {3.596593035171713*^9, 
+  3.5965930351761436`*^9}, {3.5966044308726273`*^9, 3.596604484241193*^9}, {
+  3.596901165292585*^9, 3.5969011962553*^9}, {3.59690124319948*^9, 
+  3.596901243445098*^9}, {3.598904317439178*^9, 3.5989043685040827`*^9}}]
 }, Open  ]]
 }, Open  ]],
 
@@ -258,28 +278,29 @@ Cell[1343, 43, 135, 2, 82, "Section"],
 Cell[1481, 47, 981, 18, 87, "Text"],
 Cell[CellGroupData[{
 Cell[2487, 69, 351, 8, 24, "Item"],
-Cell[2841, 79, 387, 9, 26, "Item"],
-Cell[3231, 90, 454, 10, 26, "Item"],
-Cell[3688, 102, 431, 9, 26, "Item"],
-Cell[4122, 113, 377, 9, 26, "Item"],
-Cell[4502, 124, 400, 9, 26, "Item"]
+Cell[2841, 79, 576, 12, 26, "Item"],
+Cell[3420, 93, 545, 11, 26, "Item"],
+Cell[3968, 106, 471, 10, 26, "Item"],
+Cell[4442, 118, 420, 10, 26, "Item"],
+Cell[4865, 130, 441, 10, 26, "Item"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4951, 139, 95, 1, 82, "Section"],
+Cell[5355, 146, 95, 1, 82, "Section"],
 Cell[CellGroupData[{
-Cell[5071, 144, 281, 6, 24, "Item"],
-Cell[5355, 152, 288, 6, 24, "Item"],
-Cell[5646, 160, 336, 7, 24, "Item"],
-Cell[5985, 169, 482, 9, 24, "Item"],
-Cell[6470, 180, 456, 9, 24, "Item"],
-Cell[6929, 191, 478, 9, 24, "Item"],
-Cell[7410, 202, 527, 10, 24, "Item"]
+Cell[5475, 151, 281, 6, 24, "Item"],
+Cell[5759, 159, 288, 6, 24, "Item"],
+Cell[6050, 167, 336, 7, 24, "Item"],
+Cell[6389, 176, 482, 9, 24, "Item"],
+Cell[6874, 187, 456, 9, 24, "Item"],
+Cell[7333, 198, 478, 9, 24, "Item"],
+Cell[7814, 209, 573, 10, 24, "Item"],
+Cell[8390, 221, 568, 11, 24, "Item"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7986, 218, 151, 2, 82, "Section"],
-Cell[8140, 222, 301, 5, 24, "Item"]
+Cell[9007, 238, 151, 2, 82, "Section"],
+Cell[9161, 242, 301, 5, 24, "Item"]
 }, Open  ]]
 }, Open  ]]
 }

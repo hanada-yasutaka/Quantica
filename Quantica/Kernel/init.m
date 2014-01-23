@@ -1,6 +1,6 @@
 (* Mathematica Init File *)
 Unprotect["Quantica`*"]
-ClearAll["Quantica`*"]
+If[Length[Names["Quantica`*"]]!=0, Remove["Quantica`*"]]
 Get[ "Quantica`Quantica`"]
 
 (*
