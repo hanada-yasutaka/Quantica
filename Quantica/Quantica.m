@@ -203,6 +203,6 @@ Column[{
 "有理数表現(1/2, 2/10)もしくは無理数表現(Sqrt[3])等を用いて下さい．\n" <>
 "数値を代入する場合は精度Precision[x]が"<>ToString[Precision[1/2]]<>"となる様にして下さい．\n"<>
 "\nMATHEMATICA "<>$Version,
-"\nQuantica version 0.2 [alpha]",
+"\nQuantica version 0.3.2 [beta]",
 "\nTODAY IS "<>DateString[]
 }]  

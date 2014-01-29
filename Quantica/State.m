@@ -22,6 +22,8 @@ Q2P::usage="Q2P[vec(q)]: Q2P[<q|vec>] :-> <p|vec>"
 P2Q::usage="P2Q[vec(q)]: P2Q[<p|vec>] :-> <q|vec>"
 Abs2::usage="Abs2[vec]:=|<x|vec>|^2"
 Linear::usage="linear..."
+FFT::usage="FFT[vec], Forward Fourier Transformation"
+IFFT::usage="IFFT[vec],Inverse Fourier Transformation"
 
 (*instantiation*)
 State`Zeros             :=  State`Private`Zeros
@@ -35,6 +37,8 @@ State`Q2P               :=  State`Private`Q2P
 State`P2Q               :=  State`Private`P2Q
 State`Abs2              :=  State`Private`Abs2
 State`Linear			:=	State`Private`Linear
+State`FFT				:=	State`Private`FFT
+State`IFFT				:=	State`Private`IFFT
 
 End[]
 Begin["State`Private`"]
@@ -63,18 +67,23 @@ Linear[pc_, k_, omega_]:= Module[{q,h, pre,vec,x,norm},
     norm=Abs[Inner[Times,Conjugate[vec],vec,Plus]]; (*replace Normalize*)
 	Return[vec/Sqrt[norm]];
 ]
+FFT[vec_]  := SetPrecision[Fourier        [ SetPrecision @@ {vec, Quantica`MP`dps}], Quantica`MP`dps] 
+IFFT[vec_] := SetPrecision[InverseFourier [ SetPrecision @@ {vec, Quantica`MP`dps}], Quantica`MP`dps] 
 
 Q2P[vec_]:=Module[{pd,pvec},
     pd=Domain[[2]];
-    pvec = SetPrecision[Fourier[vec], Quantica`MP`dps];
-    If[pd[[1]]*pd[[2]]<0, pvec = RotateLeft[ pvec , Length[vec]/2] ];
-    Return[pvec]
+    pvec = FFT[vec];
+    If[pd[[1]]*pd[[2]]<0, pvec = RotateLeft[ pvec , Length[pvec]/2]];
+    Return[pvec];
 ]
-P2Q[vec_]:=Module[{pd,vec1},
-    pd=Domain[[2]];
-    If[pd[[1]]*pd[[2]]<0, vec1 = RotateLeft[ vec , Length[vec]/2] ];    
-    vec1 = SetPrecision[InverseFourier[vec1], Quantica`MP`dps];
-    Return[vec1]
+P2Q[vec_]:=Module[{pd, vec1},
+    pd=Domain[[2]];	
+    If[pd[[1]]*pd[[2]]<0, vec1 = RotateLeft[ vec , Length[ vec ]/2], vec1=vec ];
+    (*
+	invec = SetPrecision[vec, Quantica`MP`dps];        
+    outvec = SetPrecision[InverseFourier[invec], Quantica`MP`dps];
+    *)
+    Return[IFFT[vec1]]
 ]
 InnerProduct:=Quantica`InnerProduct
 MirrorTr[vec_] := Reverse[vec]
