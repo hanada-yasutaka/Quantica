@@ -1,8 +1,9 @@
 (* Mathematica Package *)
 
 
-
+BeginPackage["Quantica`BCH`"]
 Begin["BCH`"]
+
 (* Exported symbols added here with SymbolName::usage *)
 Quantica`BCH::usage="context of the BCH seriese"
 Translated2::usage="Translated2[n] return n-th BCH serise for 2 word (x,y)"
@@ -10,7 +11,8 @@ Translated3::usage="Translated2[n] return n-th BCH serise for 3 word (x,y,w)"
 Translated3S::usage="Translated2[n] return n-th BCH serise for 3 word (x,y,x)"
 BCH2::usage="BCH2[n,A,B] return n-th order BCH matrix"
 BCH3::usage="BCH3[n,A,B,C] return n-th order BCH matrix"
-BCH2List::usage""
+BCH2List::usage"BCH[n,A,B] n次までのBCH展開による行列表現を与える"
+
 (*instantiation*)
 BCH`Translated2     :=  BCH`Private`Translated2
 BCH`Translated3     :=  BCH`Private`Translated3
@@ -19,96 +21,27 @@ BCH`BCH2            :=  BCH`Private`BCH2
 BCH`BCH2List        :=  BCH`Private`BCH2List
 BCH`BCH3            :=  BCH`Private`BCH3
 BCH`BCH3List        :=  BCH`Private`BCH3List
-(*
-q = Quantica`q
-p = Quantica`p
-*)
 
-OrderFunc[f_] := Length[CoefficientList[f[x], x]] - 1
+BCH`BCH2Operation			:=	BCH`Private`BCH2Operation
+BCH`BCH2HamiltonianTerm		:=	BCH`Private`BCH2HamiltonianTerm
+BCH`BCH2Hamiltonian			:=	BCH`Private`BCH2Hamiltonian
+BCH`BCH3SOperation			:=	BCH`Private`BCH3SOperation
+BCH`BCH3SHamiltonianTerm	:=	BCH`Private`BCH3SHamiltonianTerm
+BCH`BCH3SHamiltonian		:=	BCH`Private`BCH3SHamiltonian
 
-RevalToOperator[word_, opT_,opV_] := Module[{oplist,res, Psi,q,n},
-	Psi = Quantica`\[Psi];
-	q = Quantica`q;
-	oplist=StringSplit[word[[2]], ""] /. {"x" -> opT, "y" -> opV};
-	res = word[[1]]*Fold[#2[#1] &, Psi[q], Reverse[oplist]];
-	Return[res];
-]
-BCH2Operation[n_,T_,V_]:=BCH2Operation[n,T,V]=Module[
-	{bch,len,Psi,HBar,Tau, order, opT, opV,res,psilist, replacelist},
-	Clear[Quantica`q];Clear[Quantica`p];Clear[Quantica`\[HBar]];Clear[Quantica`\[Psi]];
-	Clear[Quantica`S];Clear[Quantica`\[Tau]];
-	Psi = Quantica`\[Psi];		
-	HBar = Quantica`\[HBar];
-	Tau = Quantica`\[Tau];
-
-	order=OrderFunc[T];
-	
-	opT[f_, x_:q] := S*(T[p] /. p -> HBar/I) * Fold[D, f, Table[x, {i, 1, order}]];
-	opV[f_, x_:q] := S*V[x]*f;
-	bch = Translated2[n];	
-	res = Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
-
-	len = 2*StringLength @ bch[[1]][[2]];
-	psilist = FoldList[D, Psi[q], Table[q, {i, 1, len}]];
-	replacelist = Table[psilist[[i]] -> (I/HBar*p)^(i - 1), {i, 1, Length[psilist]}];
-	Return[{res//Expand,replacelist}]
-]
-BCH2HamiltonianTerm[1,T_,V_] = T[p] + V[q] 
-BCH2HamiltonianTerm[n_, T_,V_]:=BCH2HamiltonianTerm[n,T,V]=Module[{bch, op, list, HBar,Tau},
-	bch = Translated2[n];
-	{op,list} = BCH2Operation[n,T,V] // Expand;
-(*	HBar = Quantica`\[HBar];*)
-(*	Tau = Quantica`\[Tau];*)	
-	Return[op /. list ]
-]
-BCH2Hamiltonian[n_,T_,V_]:=BCH2Hamiltonian[n,T,V]=Fold[Plus, T[p] + V[q], Table[BCH2HamiltonianTerm[i,T,V], {i,2,n}]] /. S->(-I*\[Tau]/\[HBar])
-
-BCH3SOperation[n_,T_,V_]:=BCH3SOperation[n,T,V]=
-	Module[{Psi,HBar,Tau, order, opT, opV,res,len,psilist, replacelist,bch},
-	Clear[Quantica`q];Clear[Quantica`p];Clear[Quantica`\[HBar]];Clear[Quantica`\[Psi]];
-	Clear[Quantica`S];Clear[Quantica`\[Tau]];
-	Psi = Quantica`\[Psi];		
-	HBar = Quantica`\[HBar];
-	Tau = Quantica`\[Tau];
-	order=OrderFunc[T];
-	opT[f_, x_:q] := S*(T[p] /. p -> HBar/I) * Fold[D, f, Table[x, {i, 1, order}]];
-	opV[f_, x_:q] := S*V[x]*f;
-	bch = Translated3S[n];
-	If[Length[bch]!=0,
-		res = Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
-		len = 2*StringLength @ bch[[1]][[2]];
-		psilist = FoldList[D, Psi[q], Table[q, {i, 1, len}]];
-		replacelist = Table[psilist[[i]] -> (I/HBar*p)^(i - 1), {i, 1, Length[psilist]}];
-		Return[{res//Expand,replacelist}],
-		Return[{0,0}]
-	]
-]
-BCH3SHamiltonianTerm[1,T_,V_] = T[p] + V[q]; 
-BCH3SHamiltonianTerm[n_, T_,V_]:=BCH3SHamiltonianTerm[n,T,V]=Module[{bch,op, res, list, HBar,Tau},
-	bch = Translated3S[n];
-	If[Length[bch]!=0,
-		{op,list} = BCH3SOperation[bch,T,V] // Expand;
-		HBar = Quantica`\[HBar];
-		Tau = Quantica`\[Tau];
-		res = op /. list,
-		res=0
-	];
-	Return[res]
-]
-BCH3SHamiltonian[n_,T_,V_,order_:"VTV"]:=Module[{H0},
-	If[ order=="VTV", H0 = T[p] + 2*V[q], H0 = 2*T[p] + V[q] ];
-	BCH3SHamiltonian[n,T,V]= Fold[Plus, H0,Table[BCH3SHamiltonianTerm[i,T,V], {i,3,n,2}]]
-] 
-(*/.S->(I*\[Tau]/Quantica`\[HBar])*)
-
-ClassicalTerm[H_]:=Coefficient[H, Quantica`\[HBar], 0]
-
-
+BCH`ClassicalTerm	:=	BCH`Private`ClassicalTerm
 
 End[]
 
 Begin["BCH`Private`"]
 
+Psi[x_] := Global`\[Psi][x];
+HBar = Global`\[HBar];
+Tau = Global`\[Tau];
+S = Global`S;
+q = Global`q;
+p = Global`p;
+Protect[Global`\[Psi],Global`\[HBar], Global`S, Global`q, Global`p];
  
 p2[n_] := p2[n] = Module[{F,G,i,j,k,qthpower,FGm1,q},( F = Table[1/(j-i)!,{i,n+1},{j,n+1}];
           G = Table[1/(j-i)! Product[ss[k],{k,i,j-1}],{i,n+1},{j,n+1}]; 
@@ -263,7 +196,71 @@ GeneralBCH3List[n_,A_,B_,C_,OptionsPattern[]] := GeneralBCH3List[n,A,B,C]=Module
 		{i,2,n}];
 	mat = Fold[Plus, A + B + C, res];
 	Return[mat];	
-	
 ]
 
-End[] 
+
+OrderFunc[f_] := Length[CoefficientList[f[x], x]] - 1
+RevalToOperator[word_, opT_,opV_] := Module[{oplist,res},
+	oplist=StringSplit[word[[2]], ""] /. {"x" -> opT, "y" -> opV};
+	res = word[[1]]*Fold[#2[#1] &, Psi[q], Reverse[oplist]];
+	Return[res];
+]
+BCH2Operation[n_Integer,T_,V_]:=BCH2Operation[n,T,V]=Module[{bch,len, order, opT, opV,res,psilist, replacelist},	
+	order=OrderFunc[T];
+	opT[f_, x_:q] := S*(T[p] /. p -> HBar/I) * Fold[D, f, Table[x, {i, 1, order}]];
+	opV[f_, x_:q] := S*V[x]*f;
+	bch = Translated2[n];	
+	res = Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
+
+	len = 2*StringLength @ bch[[1]][[2]];
+	psilist = FoldList[D, Psi[q], Table[q, {i, 1, len}]];
+	replacelist = Table[psilist[[i]] -> (I/HBar*p)^(i - 1), {i, 1, Length[psilist]}];
+	Return[{res//Expand,replacelist}]
+]
+
+Options[BCH2HamiltonianTerm] = {S->Symbol["S"]}
+BCH2HamiltonianTerm[1,T_,V_,OptionsPattern[]] = T[p] + V[q] 
+BCH2HamiltonianTerm[n_Integer, T_,V_,OptionsPattern[]]:=Module[{op, list},
+	{op,list} = BCH2Operation[n,T,V] // Expand;
+	Return[op /. list /.S->OptionValue[S] ]
+]
+Options[BCH2Hamiltonian] = {S->Symbol["S"]}
+BCH2Hamiltonian[n_Integer,T_,V_,opts:OptionsPattern[]]:=Fold[Plus, BCH2HamiltonianTerm[1,T,V,opts], Table[BCH2HamiltonianTerm[i,T,V,opts], {i,2,n}]] /. S->OptionValue[S]
+
+BCH3SOperation[n_Integer,T_,V_]:=BCH3SOperation[n,T,V]=
+	Module[{order, opT, opV,res,len,psilist, replacelist,bch},
+	order=OrderFunc[T];
+	opT[f_, x_:q] := S*(T[p] /. p -> HBar/I) * Fold[D, f, Table[x, {i, 1, order}]];
+	opV[f_, x_:q] := S*V[x]*f;
+	bch = Translated3S[n];
+	If[Length[bch]!=0,
+		res = Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
+		len = 2*StringLength @ bch[[1]][[2]];
+		psilist = FoldList[D, Psi[q], Table[q, {i, 1, len}]];
+		replacelist = Table[psilist[[i]] -> (I/HBar*p)^(i - 1), {i, 1, Length[psilist]}];
+		Return[{res//Expand,replacelist}],
+		Return[{0,0}]
+	]
+]
+
+Options[BCH3SHamiltonianTerm] = {TVT->False,S->Symbol["S"]}
+BCH3SHamiltonianTerm[1,T_,V_,OptionsPattern[]] = If[OptionValue[TVT], 2*T[p] + V[q], T[p] + 2*V[q] ]; 
+BCH3SHamiltonianTerm[n_Integer, T_,V_,OptionsPattern[]] := Module[{op, res, list,factor},
+	If[OptionValue[TVT],factor=-1,factor=1]; 
+	If[Mod[n,2]!=0,
+		{op,list} = BCH3SOperation[n,T,V] // Expand;
+		res = op /. list /. S->OptionValue[S],
+		res=0
+	];
+	Return[factor*res]
+]
+Options[BCH3SHamiltonian] = {TVT->False, S->Symbol["S"]}
+BCH3SHamiltonian[n_Integer,T_,V_,opts:OptionsPattern[]]:=Module[{},
+	BCH3SHamiltonian[n,T,V] = Fold[Plus, BCH3SHamiltonianTerm[1,T,V,opts], Table[BCH3SHamiltonianTerm[i,T,V,opts], {i,3,n,2}]] /.S->OptionValue[S]
+] 
+
+
+ClassicalTerm[H_]:=Coefficient[H, HBar, 0]
+
+End[]
+EndPackage[] 

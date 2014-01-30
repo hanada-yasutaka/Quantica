@@ -1,11 +1,12 @@
 (* Paclet Info File *)
 
-(* created 2014/01/23*)
+(* created 2014/01/29*)
 
 Paclet[
     Name -> "Quantica",
-    Version -> "0.3.2",
+    Version -> "0.3.3",
     MathematicaVersion -> "6+",
+    Creator -> "Yasutaka Hanada",
     Extensions -> 
         {
             {"Documentation", Language -> "English"}
