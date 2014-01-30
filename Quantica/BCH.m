@@ -246,7 +246,7 @@ BCH3SOperation[n_Integer,T_,V_]:=BCH3SOperation[n,T,V]=
 Options[BCH3SHamiltonianTerm] = {TVT->False,S->Symbol["S"]}
 BCH3SHamiltonianTerm[1,T_,V_,OptionsPattern[]] = If[OptionValue[TVT], 2*T[p] + V[q], T[p] + 2*V[q] ]; 
 BCH3SHamiltonianTerm[n_Integer, T_,V_,OptionsPattern[]] := Module[{op, res, list,factor},
-	If[( OptionValue[TVT] && Mod[n+1,4]==0 ),factor=-1,factor=1]; 
+	If[(OptionValue[TVT] && Mod[n+1,4]==0 ),factor=-1,factor=1]; 
 	If[Mod[n,2]!=0,
 		{op,list} = BCH3SOperation[n,T,V] // Expand;
 		res = op /. list /. S->OptionValue[S],
