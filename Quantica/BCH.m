@@ -28,7 +28,7 @@ BCH`BCH2Hamiltonian			:=	BCH`Private`BCH2Hamiltonian
 BCH`BCH3SOperation			:=	BCH`Private`BCH3SOperation
 BCH`BCH3SHamiltonianTerm	:=	BCH`Private`BCH3SHamiltonianTerm
 BCH`BCH3SHamiltonian		:=	BCH`Private`BCH3SHamiltonian
-
+BCH`BCH3SHamiltonianList	:=	BCH`Private`BCH3SHamiltonianList
 BCH`ClassicalTerm	:=	BCH`Private`ClassicalTerm
 
 End[]
@@ -258,7 +258,8 @@ Options[BCH3SHamiltonian] = {TVT->False, S->Symbol["S"]}
 BCH3SHamiltonian[n_Integer,T_,V_,opts:OptionsPattern[]]:=Module[{},
 	BCH3SHamiltonian[n,T,V] = Fold[Plus, BCH3SHamiltonianTerm[1,T,V,opts], Table[BCH3SHamiltonianTerm[i,T,V,opts], {i,3,n,2}]] /.S->OptionValue[S]
 ] 
-
+Options[BCH3SHamiltonianList] = {TVT->False, S->Symbol["S"]}
+BCH3SHamiltonianList[n_,T_,V_,opts:OptionsPattern[]] := Table[ BCH3SHamiltonian[i,T,V,opts], {i,1,n,2}]
 
 ClassicalTerm[H_]:=Coefficient[H, HBar, 0]
 

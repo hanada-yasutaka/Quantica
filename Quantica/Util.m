@@ -62,13 +62,13 @@ SaveEigenvalue[evals_,fname_,OptionsPattern[]] := Module[{str,ene,abs,path},
     If[OptionValue[Verbose],Print["outdata: "<>path <>"/"<>fname]]
 ]
 
-Options[SaveEigen] = {Head->"eigen",Verbose->False,Path->Directory[]}
+Options[SaveEigen] = {Head->"eigen", Verbose->False, Path->Directory[]}
 SaveEigen[evals_,evecs_,opts:OptionsPattern[]] := Module[{fname,i},
     fname= OptionValue[Head] <>"_evals.dat";
-    SaveEigenvalue[evals,fname, opts];
+    SaveEigenvalue[evals,fname, FilterRules[{opts},Options[SaveEigenValue] ]];
     For[i=0,i<Length[evals],i++;
         fname=OptionValue[Head] <>"_qrep_"<> ToString[i-1] <> ".dat";
-        SaveState[X[[1]], evecs[[i]], fname, opts];
+        SaveState[X[[1]], evecs[[i]], fname, FilterRules[{opts}, Options[SaveState]] ];
     ]
 ]
 MirrorParity := State`MirrorParity

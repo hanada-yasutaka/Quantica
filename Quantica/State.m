@@ -21,14 +21,18 @@ TranslationParity::usage="TranslationParity[vec,shift:Dim/2]:Re[<vec(q+shift)|ve
 Q2P::usage="Q2P[vec(q)]: Q2P[<q|vec>] :-> <p|vec>"
 P2Q::usage="P2Q[vec(q)]: P2Q[<p|vec>] :-> <q|vec>"
 Abs2::usage="Abs2[vec]:=|<x|vec>|^2"
-Linear::usage="linear..."
-FFT::usage="FFT[vec], Forward Fourier Transformation"
-IFFT::usage="IFFT[vec],Inverse Fourier Transformation"
+Linear::usage="Linear[pc,k,omega]"
+
+InnerProduct::usage="InnerProduct[vec1,vec2]: return <vec1|vec2>"
+InnerProducts::usage="InnerProducts[vec1,basis]:return {<basis[1]|vec2>,<basis[2]|vec2>,...}"
+Overlap::usage="InnerProduct[vec1,vec2]: return |<vec1|vec2>|^2"
+
 
 (*instantiation*)
 State`Zeros             :=  State`Private`Zeros
 State`Unit              :=  State`Private`Unit
 State`CS                :=  State`Private`CS
+State`PeriodicCS		:=	State`Private`PeriodicCS
 State`MirrorTr          :=  State`Private`MirrorTr
 State`MirrorParity      :=  State`Private`MirrorParity
 State`TranslationTr     :=  State`Private`TranslationTr
@@ -37,13 +41,32 @@ State`Q2P               :=  State`Private`Q2P
 State`P2Q               :=  State`Private`P2Q
 State`Abs2              :=  State`Private`Abs2
 State`Linear			:=	State`Private`Linear
-State`FFT				:=	State`Private`FFT
-State`IFFT				:=	State`Private`IFFT
+State`InnerProduct		:=	State`Private`InnerProduct
+State`InnerProducts		:=	State`Private`InnerProducts
+State`Overlap			:=	State`Private`Overlap
 
 End[]
 Begin["State`Private`"]
 testPrec::precisionError = "input value is `1`, usege infinite precision or > dps "
 testPrec[x_]:= If[ Precision[x] < Quantica`MP`dps, Message[testPrec::precisionError,x];Abort[],True]
+
+
+SetPeriodic[f_]:=Module[{qmin,qmax,interval,longx,part},
+	{qmin,qmax} = Quantica`Domain[[1]];
+	interval = (qmax - qmin);
+	longx = Linspace[qmin - 2*interval, qmax + 2*interval, 5*Dim];
+	part = Partition[f[longx], dim];
+	Fold[Plus, part[[1]], part[[2 ;; 5]] ]
+]
+PeriodicCS[qc_,pc_]:=Module[{qmin,qmax,interval,longx,part,f},
+	{qmin,qmax} = Quantica`Domain[[1]];
+	interval = (qmax - qmin);
+	f[q_]:=Exp[-(q-qc)^2/(2*Hbar)+I*pc*(q-qc)/Hbar];	
+	longx = Linspace[qmin - 2*interval, qmax + 2*interval, 5*Dim];
+	part = Partition[f[longx], Dim];
+	Fold[Plus, part[[1]], part[[2 ;; 5]] ]
+]
+
 
 Zeros[] := PadLeft[{}, Dim]
 Unit[n_Integer]:= Module[{x},
@@ -57,18 +80,17 @@ CS[qc_,pc_]:= Module[{vec,norm,q},
     norm=Abs[Inner[Times,Conjugate[vec],vec,Plus]]; (*replace Normalize*)
     Return[vec/Sqrt[norm]]
 ]
+
 Linear[pc_, k_, omega_]:= Module[{q,h, pre,vec,x,norm},
 	Map[testPrec, {pc,k,omega}];
 	q = Quantica`X[[1]];
 	h = Quantica`Planck;
-	pre = -k/(16*Pi*Pi*Sin[Pi*omega]);
+	pre = -k/(8*Pi*Pi*Sin[Pi*omega]);
 	x = pre*Sin[2*Pi*(q - omega/2)] + q*pc;
 	vec = Exp[I*2*Pi/h * x];
     norm=Abs[Inner[Times,Conjugate[vec],vec,Plus]]; (*replace Normalize*)
 	Return[vec/Sqrt[norm]];
 ]
-FFT[vec_]  := SetPrecision[Fourier        [ SetPrecision @@ {vec, Quantica`MP`dps}], Quantica`MP`dps] 
-IFFT[vec_] := SetPrecision[InverseFourier [ SetPrecision @@ {vec, Quantica`MP`dps}], Quantica`MP`dps] 
 
 Q2P[vec_]:=Module[{pd,pvec},
     pd=Domain[[2]];
@@ -79,10 +101,6 @@ Q2P[vec_]:=Module[{pd,pvec},
 P2Q[vec_]:=Module[{pd, vec1},
     pd=Domain[[2]];	
     If[pd[[1]]*pd[[2]]<0, vec1 = RotateLeft[ vec , Length[ vec ]/2], vec1=vec ];
-    (*
-	invec = SetPrecision[vec, Quantica`MP`dps];        
-    outvec = SetPrecision[InverseFourier[invec], Quantica`MP`dps];
-    *)
     Return[IFFT[vec1]]
 ]
 InnerProduct:=Quantica`InnerProduct
@@ -103,4 +121,10 @@ TranslationParity[vec_, n_:-1] := Module[{vec1,inner,shift},
 ]
 Abs2[vec_]:=Abs[Conjugate[vec]*vec]
 
+InnerProduct[vec1_,vec2_] := Inner[Times,Conjugate[vec1],vec2,Plus]
+InnerProducts[vec_, basis_] := Table[InnerProduct[basis[[i]], vec],{i,1,Length[basis]}]
+Overlap[vec1_,vec2_] := Module[{ovl},
+    ovl = InnerProduct[vec1,vec2];
+    Return[ Abs[ ovl*Conjugate[ovl] ] ]
+]
 End[]

@@ -11,10 +11,7 @@ Quantica`MP::usage="context of the multiple precision settings"
 dps::usage="the decimal precision (defalt 20)"
 dps=20
 End[]
-(*
-Get["Quantica`BCH`"]
-*)
-Get["Quantica`Systems`"]
+
 
 (* infomation *)
 QuanticaSetting::usage = "QuanticaSetting[dim, domain, tau=1 ],\n
@@ -26,20 +23,18 @@ QuanticaSetting::domainError = "require 2x2 list such that {{qmin,qmax},{pmin,pm
 QuanticaSetting::QdomainError = "require {qmin<qmax), but you input `1`"
 QuanticaSetting::PdomainError = "require {pmin<pmax}, but you input `1`"
 QuanticaSetting::precisionError = "don't use floting point value(1.0 or 2.0).\n use infinite precision representation such as 2, Sqrt[2] or 1/10."
-
+(*
 SetSystem::usage="SetSystem[T,V]: Kinetic function and Potential function"
 SetSystem::precisionError = "Precision of `1` is MachinePrecision"
 SetSystem::defError = "Function `1` is not defined."
 GetSystem::usage="return [T,V]: Kinetic and Potential term"
+*)
 Eigen::usage="{evalues,evectors}=Eigen[mat,sort:True]\n return eigenvalue and eigenvectors"
 ParallelEigen::usage=""
 
 QuasiEnergy::usage="return quasi-energies"
 SortIndex::usage="SortIndex[basis, evecs] <evecs_m|basos_n>が最大の値を返すmをn=0から順に求め，mのリストし返します"
 SortEigen::usage="SortEigen[evals, evecs, index] indexの順番で並び替えされたevalsとevecsを返します"
-InnerProduct::usage="InnerProduct[vec1,vec2]: return <vec1|vec2>"
-InnerProducts::usage="InnerProducts[vec1,basis]:return {<basis[1]|vec2>,<basis[2]|vec2>,...}"
-Overlap::usage="InnerProduct[vec1,vec2]: return |<vec1|vec2>|^2"
 
 
 Dim::usage="Hilbert Space dimension (matrix dimension)"
@@ -54,24 +49,47 @@ Hbar::usage="effective Planck's constant divided by 2pi"
 Quantica`Help::usage="Helpを開きます"
 Quantica`Help[] := NotebookOpen[ToFileName[{$UserBaseDirectory, "Applications", "Quantica","Documentation", "English", "Guides"}, "Quantica.nb"]]
 
+Linspace[xmin_,xmax_,n_Integer,endpoint_:False]:=Module[{dx,res},
+	If[endpoint,
+		dx=(xmax-xmin)/(n-1);
+		res=Range[xmin,xmax,dx],
+		dx=(xmax-xmin)/n;
+		res=Range[xmin, xmax-dx,dx]
+	];
+	Return[res];
+]
+FFT[vec_]  := SetPrecision[Fourier        [ SetPrecision @@ {vec, Quantica`MP`dps},FourierParameters->{1,-1}], Quantica`MP`dps] 
+IFFT[vec_] := SetPrecision[InverseFourier [ SetPrecision @@ {vec, Quantica`MP`dps},FourierParameters->{1,-1}], Quantica`MP`dps] 
+
 (* constant *)
 Dim=Dim
 Domain=Domain
 Tau=Tau
-tau=tau
 X=X
-Area=Area  
+Area=Area
 Planck=Planck
 Hbar=Hbar
+Protect[Dim, Domain,Tau, X, Area, Planck, Hbar,tau]
+Protect[Q,P]
 
-Protect["tau"]
+FunctionPrecision::PrecisionError= "関数の精度 (`1`) はです．目標精度(Quantica'MP'dps)より低いため評価を中断しました"    
+FunctionPrecision[f_]:=Module[{x},
+	If[ Precision@f[x] < Quantica`MP`dps,
+		 Message[FunctionPrecision::PrecisionError,Precision@f[x]]; Abort[];
+	];
+]
+NumberPrecision::PrecisionError= "代入した値の精度は (`1`) です．目標精度(Quantica'MP'dps)より低いため評価を中断しました"
+NumberPrecision[x_]:=If[ Precision@x < Quantica`MP`dps, Message[NumberPrecision::PrecisionError, Precision@x]; Abort[]]
+
 Begin["`Private`"]
 (*Privateに入れないとNames["Quantica`アスタリスク"]に(局所)変数が表示されてしまうのだ*)
 
 (*QuanticaSetting[dim_, domain_, tau_:1, Verbose_:False] :=  Module[ {},*)
-Options[QuanticaSetting] = {tau->1, Verbose->False}
+
+
 (*todo:
     optionの局所変数化*)
+Options[QuanticaSetting] = {tau->1, Verbose->True,a->1}    
 QuanticaSetting[dim_, domain_, OptionsPattern[]] :=  Module[ {},
     Which[
         Not[IntegerQ[dim]], 
@@ -80,50 +98,36 @@ QuanticaSetting[dim_, domain_, OptionsPattern[]] :=  Module[ {},
                 Message[QuanticaSetting::dimError,dim],
         Dimensions[domain]!={2,2},
                 Message[QuanticaSetting::domainError,domain],
+		(*                
         Length[Select[Flatten[domain],Precision[#] == Infinity &]]!=4,
                 Message[QuanticaSetting::precisionError,domain],
         Precision[OptionValue[tau]] != Infinity,
                 Message[QuanticaSetting::precisionError,domain],
+        *)
         domain[[1]][[1]]>=domain[[1]][[2]],
                 Message[QuanticaSetting::QdomainError,domain[[1]]],
         domain[[2]][[1]]>=domain[[2]][[2]],
                 Message[QuanticaSetting::PdomainError,domain[[2]]],
         True,
-            Unprotect["Quantica`*"];
+        	NumberPrecision[#] &/@ {dim, domain, OptionValue[tau]};
+			Unprotect[Dim, Domain,Tau, X, Area, Planck, Hbar];        
             Dim=dim; Domain=domain;X=setX[];
             Area=setArea[];Planck=setPlanck[];Tau=OptionValue[tau];Hbar=setHbar[];
             (*Quantica`MP`dps=OptionValue[Dps];*)            
-            Print[{"Dim:", Dim,"Domain:",Domain,"Tau:",Tau,"dps:",Quantica`MP`dps}];
-            If[Verbose==True,
+            If[OptionValue[Verbose]==True,
                 Print[{"Dim:", Dim,"Domain:",Domain,
                 "Tau:",Tau,"dps:",Quantica`MP`dps}]
             ];
            
             Get["Quantica`Util`"];
             Get["Quantica`State`"];
-            
+        	Get["Quantica`PositionBase`"];
+        	Get["Quantica`HarmonicBase`"];
+        	Get["Quantica`Qmap`"];        	
     ];
-    Protect["Quantica`*"];
+	Protect[Dim, Domain,Tau, X, Area, Planck, Hbar];        	
 ]
-GetSystem[]:= {FuncT, FuncV};
-SetSystem[T_, V_] := Module[{},
-    Which[
-    Precision[ T[ X[[2]] ] ]==MachinePrecision,
-        Message[SetSystem::precisionError, ToString[T]],
-    Precision[ V[ X[[1]] ] ]==MachinePrecision,
-        Message[SetSystem::precisionError, ToString[V]],
-    Not[ ListQ[T[ X[[2]] ] ] ],
-        Message[SetSystem::defError, ToString[T]],
-    Not[ ListQ[V[ X[[1]] ] ] ],
-        Message[SetSystem::defError, ToString[V]],
-    True,
-        Clear[FuncT,FuncV];        
-        FuncT[x_]=T[x];FuncV[x_]=V[x];
-        (*Get[Quantica`HarmonicBasep"]*)
-        Get["Quantica`FourierBase`"];
-        Get["Quantica`Qmap`"];        
-    ];
-]
+
 Options[Eigen] = {Sort->True, Vector->True}
 Eigen[mat_,OptionsPattern[]] := Module[{index,evals,evecs},
     If[ OptionValue[Vector],
@@ -162,7 +166,7 @@ ParallelEigen[mats_,OptionsPattern[]]:=Module[{i,res,index},
 	
 QuasiEnergy[evals_]:= Hbar*I*Log[evals]/Tau
 
-SortIndex[ref_,evecs_]:= Ordering [ Overlap[evecs, ref[[#]] ] ][[-1]] & /@ Range[Dim]
+SortIndex[ref_,evecs_]:= Ordering [ State`Overlap[evecs, ref[[#]] ] ][[-1]] & /@ Range[Dim]
 
 SortEigen[evals_,evecs_,index_]:=Module[{vals,vecs},
     vals=evals[[index]];
@@ -171,20 +175,15 @@ SortEigen[evals_,evecs_,index_]:=Module[{vals,vecs},
 ]
 
 (* Operation *)
-InnerProduct[vec1_,vec2_] := Inner[Times,Conjugate[vec1],vec2,Plus]
-InnerProducts[vec_, basis_] := Table[InnerProduct[basis[[i]], vec],{i,1,Length[basis]}]
-Overlap[vec1_,vec2_] := Module[{ovl},
-    ovl = InnerProduct[vec1,vec2];
-    Return[ Abs[ ovl*Conjugate[ovl] ] ]
-]
+
 
 
 (*Private functions*)
 setX[] := Module[{q,p,dq,dp,i}, 
     dq = (Domain[[1]][[2]] - Domain[[1]][[1]])/Dim;
     dp = (Domain[[2]][[2]] - Domain[[2]][[1]])/Dim;
-    q = N[Table[Domain[[1]][[1]]+i*dq,{i,0,Dim-1}], Quantica`MP`dps];
-    p = N[Table[Domain[[2]][[1]]+i*dp,{i,0,Dim-1}], Quantica`MP`dps];
+    q = N[Linspace[Domain[[1]][[1]], Domain[[1]][[2]], Dim],Quantica`MP`dps]; (*N[Table[Domain[[1]][[1]]+i*dq,{i,0,Dim-1}], Quantica`MP`dps];*)
+    p = N[Linspace[Domain[[2]][[1]], Domain[[2]][[2]], Dim],Quantica`MP`dps];(*N[Table[Domain[[2]][[1]]+i*dp,{i,0,Dim-1}], Quantica`MP`dps];*)
     Return[{q,p}]
 ]
 setArea[]  := N[(Domain[[1]][[2]] - Domain[[1]][[1]])*(Domain[[2]][[2]] - Domain[[2]][[1]]), Quantica`MP`dps]
@@ -204,6 +203,6 @@ Column[{
 "有理数表現(1/2, 2/10)もしくは無理数表現(Sqrt[3])等を用いて下さい．\n" <>
 "数値を代入する場合は精度Precision[x]が"<>ToString[Precision[1/2]]<>"となる様にして下さい．\n"<>
 "\nMATHEMATICA "<>$Version,
-"\nQuantica version 0.3.3 [beta]",
+"\nQuantica version 0.5.0 [beta]",
 "\nTODAY IS "<>DateString[]
 }]  
