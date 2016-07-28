@@ -11,7 +11,7 @@ n:integer\n
 Note:listのindexは1から始まる事に注意!"
 State`CS::usage="CS[qc,pc]: return coherent state centered at (qc,pc)\n
 qc,pc: number\n
-Note:周期境界条件は課していません．｡
+Note:周期境界条件は課していません．。
 "
 
 MirrorTr::usage="MirrorTr[vec]: mirror transformation. MirrorTr[vec(q)]:->vec(-q)"
@@ -24,7 +24,7 @@ Abs2::usage="Abs2[vec]:=|<x|vec>|^2"
 Linear::usage="Linear[pc,k,omega]"
 
 InnerProduct::usage="InnerProduct[vec1,vec2]: return <vec1|vec2>"
-InnerProducts::usage="InnerProducts[vec1,basis]:return {<basis[1]|vec2>,<basis[2]|vec2>,...}"
+InnerProducts::usage="InnerProducts[vec1,basis]:return {<basis[1]|vec1>,<basis[2]|vec1>,...}"
 Overlap::usage="InnerProduct[vec1,vec2]: return |<vec1|vec2>|^2"
 
 
@@ -96,12 +96,14 @@ Q2P[vec_]:=Module[{pd,pvec},
     pd=Domain[[2]];
     pvec = FFT[vec];
     If[pd[[1]]*pd[[2]]<0, pvec = RotateLeft[ pvec , Length[pvec]/2]];
-    Return[pvec];
+    Return[pvec/Sqrt[Quantica`Dim]];
 ]
+
 P2Q[vec_]:=Module[{pd, vec1},
-    pd=Domain[[2]];	
+    pd=Domain[[2]];
+    vec1 = RotateLeft[ vec , Length[ vec ]/2];
     If[pd[[1]]*pd[[2]]<0, vec1 = RotateLeft[ vec , Length[ vec ]/2], vec1=vec ];
-    Return[IFFT[vec1]]
+    Return[IFFT[vec1]*Sqrt[Quantica`Dim]]
 ]
 InnerProduct:=Quantica`InnerProduct
 MirrorTr[vec_] := Reverse[vec]
@@ -122,7 +124,7 @@ TranslationParity[vec_, n_:-1] := Module[{vec1,inner,shift},
 Abs2[vec_]:=Abs[Conjugate[vec]*vec]
 
 InnerProduct[vec1_,vec2_] := Inner[Times,Conjugate[vec1],vec2,Plus]
-InnerProducts[vec_, basis_] := Table[InnerProduct[basis[[i]], vec],{i,1,Length[basis]}]
+InnerProducts[vec_, basis_] := SetPrecision[Table[InnerProduct[basis[[i]], vec],{i,1,Length[basis]}], Quantica`MP`dps	]
 Overlap[vec1_,vec2_] := Module[{ovl},
     ovl = InnerProduct[vec1,vec2];
     Return[ Abs[ ovl*Conjugate[ovl] ] ]

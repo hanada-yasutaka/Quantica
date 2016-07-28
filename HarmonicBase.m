@@ -31,5 +31,6 @@ MatrixRep[f_,x_]:=Module[{coef,list,i,res},
 	Return[res];
 ]
 
+
 End[] (* End Private Context *)
 

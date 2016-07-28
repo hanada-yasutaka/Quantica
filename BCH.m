@@ -81,10 +81,11 @@ Translated3S[n_] := Module[{temp, term,i},
 
 RavelToMatrix[n_Integer, bch_] :=bch[[n]][[1]]*Fold[Dot, "Iden", StringSplit @@ {bch[[n]][[2]], ""}]
 
-Decode2Matrix[A_,B_,bch_]:=Decode2Matrix[A,B,bch]=Module[{i,decode, list,mat},
+Decode2Matrix[A_,B_,bch_]:=Decode2Matrix[A,B,bch]=Module[{i,decode,mat,SUM},
 	decode = Table[RavelToMatrix[i,bch],{i,1,Length[bch]}];
 	SetSharedVariable[decode];
-	mat = ParallelSum[ (*bottle neck*)
+	If[Length@Kernels[]==0, SUM=Sum,SUM=ParallelSum];
+	mat = SUM[ (*bottle neck*)
 		ReplaceAll[decode[[i]],
 				{ "x"->A,
 			  	  "y"->B,
@@ -94,10 +95,11 @@ Decode2Matrix[A_,B_,bch_]:=Decode2Matrix[A,B,bch]=Module[{i,decode, list,mat},
 	UnsetShared[decode];
 	Return[mat];
 ]
-Decode3Matrix[A_,B_,C_,bch_]:=Decode3Matrix[A,B,C,bch]=Module[{i,decode, list,mat},
+Decode3Matrix[A_,B_,C_,bch_]:=Decode3Matrix[A,B,C,bch]=Module[{i,decode,mat,SUM},
 	decode = Table[RavelToMatrix[i,bch],{i,1,Length[bch]}];
 	SetSharedVariable[decode];
-	mat = ParallelSum[ (*bottle neck*)	
+	If[Length@Kernels[]==0, SUM=Sum,SUM=ParallelSum];	
+	mat = SUM[ (*bottle neck*)	
 		ReplaceAll[decode[[i]],
 				{ "x"->A,
 			  	  "y"->B,
@@ -111,8 +113,9 @@ Decode3Matrix[A_,B_,C_,bch_]:=Decode3Matrix[A,B,C,bch]=Module[{i,decode, list,ma
 Options[BCH2] = {Verbose->True,KernelNum->1}
 BCH2[n_Integer,A_,B_,OptionsPattern[]]:=BCH2[n,A,B]=Module[{mat, i,res,num},
 	num = OptionValue[KernelNum];
-	Which[Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
-		  Length[Kernels[]]==0,LaunchKernels[]
+	Which[num==1, True,
+		Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
+		Length[Kernels[]]==0,LaunchKernels[]
 	];
 	res = Table[
 		If[ OptionValue[Verbose], Print[{"2 word BCH series:",i}] ];				
@@ -146,7 +149,9 @@ BCH3List[n_,A_,B_,C_,opts:OptionsPattern[]] := Module[{mat},
 Options[SymmetricBCH3] = {Verbose->False,KernelNum->1}
 SymmetricBCH3[n_,A_,B_,opt:OptionsPattern[]]:=SymmetricBCH3[n,A,B]=Module[{mat,num,i,res},
 	num = OptionValue[KernelNum];
-	Which[Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
+	Which[
+    num==1,True,
+		Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
 		  Length[Kernels[]]==0,LaunchKernels[]
 	];
 	res = Table[
@@ -159,9 +164,12 @@ SymmetricBCH3[n_,A_,B_,opt:OptionsPattern[]]:=SymmetricBCH3[n,A,B]=Module[{mat,n
 Options[SymmetricBCH3List] = {Verbose->False,KernelNum->1}
 SymmetricBCH3List[n_,A_,B_,OptionsPattern[]]:=SymmetricBCH3List[n,A,B]=Module[{mat,num,i,res},
 	num = OptionValue[KernelNum];
-	Which[Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
+	Which[
+		num==1, True,		
+		Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
 		  Length[Kernels[]]==0,LaunchKernels[]
 	];
+
 	res = Table[
 		If[ OptionValue[Verbose], Print[{"2 word Symmetric BCH series:",i}] ];				
 		Decode2Matrix[A,B,Translated3S[i]],
@@ -173,7 +181,9 @@ SymmetricBCH3List[n_,A_,B_,OptionsPattern[]]:=SymmetricBCH3List[n,A,B]=Module[{m
 Options[GeneralBCH3] = {Verbose->False, KernelNum->1}
 GeneralBCH3[n_,A_,B_,C_,OptionsPattern[]] := GeneralBCH3[n,A,B,C]=Module[{mat,res,num,i},
 	num = OptionValue[KernelNum];
-	Which[Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
+	Which[
+		num==1, True,		
+		Length[Kernels[]]==0 && $ProcessorCount > num > 0, LaunchKernels[num],
 		  Length[Kernels[]]==0,LaunchKernels[]
 	];
 	res = Table[
@@ -205,6 +215,12 @@ RevalToOperator[word_, opT_,opV_] := Module[{oplist,res},
 	res = word[[1]]*Fold[#2[#1] &, Psi[q], Reverse[oplist]];
 	Return[res];
 ]
+RevalToOperator3S[word_, opT_,opV_] := Module[{oplist,res},
+	oplist=StringSplit[word[[2]], ""] /. {"x" -> opV, "y" -> opT};
+	res = word[[1]]*Fold[#2[#1] &, Psi[q], Reverse[oplist]];
+	Return[res];
+]
+
 BCH2Operation[n_Integer,T_,V_]:=BCH2Operation[n,T,V]=Module[{bch,len, order, opT, opV,res,psilist, replacelist},	
 	order=OrderFunc[T];
 	opT[f_, x_:q] := S*(T[p] /. p -> HBar/I) * Fold[D, f, Table[x, {i, 1, order}]];
@@ -234,7 +250,7 @@ BCH3SOperation[n_Integer,T_,V_]:=BCH3SOperation[n,T,V]=
 	opV[f_, x_:q] := S*V[x]*f;
 	bch = Translated3S[n];
 	If[Length[bch]!=0,
-		res = Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
+		res = Sum[RevalToOperator3S[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
 		len = 2*StringLength @ bch[[1]][[2]];
 		psilist = FoldList[D, Psi[q], Table[q, {i, 1, len}]];
 		replacelist = Table[psilist[[i]] -> (I/HBar*p)^(i - 1), {i, 1, Length[psilist]}];

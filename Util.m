@@ -37,12 +37,16 @@ WriteScaleInfo[str_] := Module[{d},
 ]
 SetPath[path_]:=If[DirectoryQ[path], SetDirectory[path];True,Message[SetPath::PathError, path];False ];
 
-Options[SaveState] = {Verbose->False, Path->Directory[]}
-SaveState[x_,evec_,fname_,OptionsPattern[]] := Module[{str,path},
+Options[SaveState] = {Verbose->False, Path->Directory[],Header->None}
+SaveState[x_,evec_,fname_,OptionsPattern[]] := Module[{str,path,header},
 	path = OptionValue[Path];
 	If[DirectoryQ[path], True, CreateDirectory[path]];
     str=OpenWrite[path<>"/"<>fname];	
     WriteScaleInfo[str];
+    header=OptionValue[Header];
+    If[Not@TrueQ[header ==None],
+    	Export[str, "# " <> header <> "\n"];
+    ];
     Export[str,"# x, |<x|vec>|^2, Re[<x|vec>], Im[<x|vec>] \n"];        
     Export[str,Transpose[{x,Abs[evec*Conjugate[evec]],Re[evec],Im[evec]}]];
     Close[str];
@@ -65,7 +69,7 @@ SaveEigenvalue[evals_,fname_,OptionsPattern[]] := Module[{str,ene,abs,path},
 Options[SaveEigen] = {Head->"eigen", Verbose->False, Path->Directory[]}
 SaveEigen[evals_,evecs_,opts:OptionsPattern[]] := Module[{fname,i},
     fname= OptionValue[Head] <>"_evals.dat";
-    SaveEigenvalue[evals,fname, FilterRules[{opts},Options[SaveEigenValue] ]];
+    SaveEigenvalue[evals,fname, FilterRules[{opts},Options[SaveEigenvalue] ]];
     For[i=0,i<Length[evals],i++;
         fname=OptionValue[Head] <>"_qrep_"<> ToString[i-1] <> ".dat";
         SaveState[X[[1]], evecs[[i]], fname, FilterRules[{opts}, Options[SaveState]] ];

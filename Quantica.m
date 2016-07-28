@@ -41,7 +41,7 @@ Dim::usage="Hilbert Space dimension (matrix dimension)"
 Domain::usage="Domain of the phase space {{q interval}, {p interval}}"
 Tau::usage="discretization of time(dt): (optional, defalt Tau=1)"
 X::usage="coordinate of the position and momentum X = [q,p]"
-Area::usage="Area of the phase space"
+PSArea::usage="Area of the phase space"
 Planck::usage="effective Planck's constant"
 Hbar::usage="effective Planck's constant divided by 2pi"
 
@@ -66,10 +66,10 @@ Dim=Dim
 Domain=Domain
 Tau=Tau
 X=X
-Area=Area
+PSArea=PSArea
 Planck=Planck
 Hbar=Hbar
-Protect[Dim, Domain,Tau, X, Area, Planck, Hbar,tau]
+Protect[Dim, Domain,Tau, X, PSArea, Planck, Hbar,tau]
 Protect[Q,P]
 
 FunctionPrecision::PrecisionError= "関数の精度 (`1`) はです．目標精度(Quantica'MP'dps)より低いため評価を中断しました"    
@@ -110,9 +110,9 @@ QuanticaSetting[dim_, domain_, OptionsPattern[]] :=  Module[ {},
                 Message[QuanticaSetting::PdomainError,domain[[2]]],
         True,
         	NumberPrecision[#] &/@ {dim, domain, OptionValue[tau]};
-			Unprotect[Dim, Domain,Tau, X, Area, Planck, Hbar];        
+			Unprotect[Dim, Domain,Tau, X, PSArea, Planck, Hbar];        
             Dim=dim; Domain=domain;X=setX[];
-            Area=setArea[];Planck=setPlanck[];Tau=OptionValue[tau];Hbar=setHbar[];
+            PSArea=setArea[];Planck=setPlanck[];Tau=OptionValue[tau];Hbar=setHbar[];
             (*Quantica`MP`dps=OptionValue[Dps];*)            
             If[OptionValue[Verbose]==True,
                 Print[{"Dim:", Dim,"Domain:",Domain,
@@ -125,7 +125,7 @@ QuanticaSetting[dim_, domain_, OptionsPattern[]] :=  Module[ {},
         	Get["Quantica`HarmonicBase`"];
         	Get["Quantica`Qmap`"];        	
     ];
-	Protect[Dim, Domain,Tau, X, Area, Planck, Hbar];        	
+	Protect[Dim, Domain,Tau, X, PSArea, Planck, Hbar];        	
 ]
 
 Options[Eigen] = {Sort->True, Vector->True}
@@ -146,16 +146,19 @@ Eigen[mat_,OptionsPattern[]] := Module[{index,evals,evecs},
         Return[evals]
     ];
 ]
-Options[ParallelEigen] = {Sort->True, Vector->True}
-ParallelEigen[mats_,OptionsPattern[]]:=Module[{i,res,index},
+Options[ParallelEigen] = {Sort->True, Vector->True,KernelNum->1}
+ParallelEigen[mats_,OptionsPattern[]]:=Module[{i,res,index,num,MAP},
+	num=OptionValue[KernelNum];
+	If[num>1, LaunchKernels[num]];
+	If[Length@Kernels[] > 1, MAP=ParallelMap, MAP=Map];
 	If[ OptionValue[Vector],
-		res = ParallelMap[ Eigensystem, mats];	
+		res = MAP[ Eigensystem, mats];	
 		index = Ordering[ Re[res[[#]][[1]]] ] & /@ Range[Length[mats]];
 		For[i=1,i<=Length[mats],i++,
 			res[[i]][[1]] = res[[i]][[1]][[ index[[i]] ]];	
 			res[[i]][[2]] = res[[i]][[2]][[ index[[i]] ]];			
 		],
-		res = ParallelMap[Eigenvalues, mats];
+		res = MAP[Eigenvalues, mats];
 		index = Ordering[ Re[res[[#]] ] ] & /@ Range[Length[mats]];
 		For[i=1,i<=Length[mats],i++,
 			res[[i]] = res[[i]][[ index[[i]] ]]	
@@ -163,11 +166,28 @@ ParallelEigen[mats_,OptionsPattern[]]:=Module[{i,res,index},
 	];
 	Return[res];
 ]
-	
+
 QuasiEnergy[evals_]:= Hbar*I*Log[evals]/Tau
 
-SortIndex[ref_,evecs_]:= Ordering [ State`Overlap[evecs, ref[[#]] ] ][[-1]] & /@ Range[Dim]
+(*duplex problem occur using this method
+SortIndex1[ref_,evecs_]:= Ordering [ State`Overlap[evecs, ref[[#]] ] ][[-1]] & /@ Range[Length[ref]]
+*)
 
+SortIndex[ref_,evecs_]:=Module[{i,j,index, maxindex},
+  index = {};
+  For[i=1,i<=Length@evecs,i++,
+    maxindex = Ordering[State`Overlap[evecs,ref[[i]] ] ] [[-1]];
+    j=1;
+    While[MemberQ[index,maxindex],
+      maxindex = Ordering[State`Overlap[evecs, ref[[i]] ] ] [[-j]];
+      j+=1;
+    ];
+    index = Append[index, maxindex];
+  ];
+  Return[index];
+]
+
+                                        
 SortEigen[evals_,evecs_,index_]:=Module[{vals,vecs},
     vals=evals[[index]];
     vecs=evecs[[index]];
@@ -179,15 +199,15 @@ SortEigen[evals_,evecs_,index_]:=Module[{vals,vecs},
 
 
 (*Private functions*)
-setX[] := Module[{q,p,dq,dp,i}, 
+setX[] := Module[{q,p,dq,dp}, 
     dq = (Domain[[1]][[2]] - Domain[[1]][[1]])/Dim;
     dp = (Domain[[2]][[2]] - Domain[[2]][[1]])/Dim;
-    q = N[Linspace[Domain[[1]][[1]], Domain[[1]][[2]], Dim],Quantica`MP`dps]; (*N[Table[Domain[[1]][[1]]+i*dq,{i,0,Dim-1}], Quantica`MP`dps];*)
-    p = N[Linspace[Domain[[2]][[1]], Domain[[2]][[2]], Dim],Quantica`MP`dps];(*N[Table[Domain[[2]][[1]]+i*dp,{i,0,Dim-1}], Quantica`MP`dps];*)
+    q = N[Linspace[Domain[[1]][[1]], Domain[[1]][[2]], Dim,False],Quantica`MP`dps]; 
+    p = N[Linspace[Domain[[2]][[1]], Domain[[2]][[2]], Dim,False],Quantica`MP`dps];
     Return[{q,p}]
 ]
 setArea[]  := N[(Domain[[1]][[2]] - Domain[[1]][[1]])*(Domain[[2]][[2]] - Domain[[2]][[1]]), Quantica`MP`dps]
-setPlanck[]:= N[Area/Dim,Quantica`MP`dps]
+setPlanck[]:= N[PSArea/Dim,Quantica`MP`dps]
 setHbar[]  := N[Planck/(2*Pi),Quantica`MP`dps]
 
 
@@ -200,9 +220,9 @@ Column[{
 "by Yasutaka Hanada.\n",
 "注意事項：\n"<>
 "任意精度計算の為に，機械精度の浮動小数点表現(0.5や1.2等)を用いないで下さい．\n" <>
-"有理数表現(1/2, 2/10)もしくは無理数表現(Sqrt[3])等を用いて下さい．\n" <>
+"代わりに，有理数表現(1/2, 2/10)もしくは無理数表現(Sqrt[3])等を用いて下さい．\n" <>
 "数値を代入する場合は精度Precision[x]が"<>ToString[Precision[1/2]]<>"となる様にして下さい．\n"<>
 "\nMATHEMATICA "<>$Version,
-"\nQuantica version 0.5.0 [beta]",
+"\nQuantica version 0.6.3 \[Beta]",
 "\nTODAY IS "<>DateString[]
 }]  

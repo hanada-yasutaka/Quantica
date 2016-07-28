@@ -21,6 +21,7 @@ PositionBase`MatrixT     := PositionBase`Private`MatrixT
 *)
 PositionBase`Hamiltonian := PositionBase`Private`Hamiltonian
 PositionBase`Func2Matrix	:= PositionBase`Private`Func2Matrix
+PositionBase`AbsorbedHamiltonian :=PositionBase`Private`AbsorbedHamiltonian
 End[]
 
 Begin["PositionBase`Private`"]
@@ -50,6 +51,21 @@ MatrixPFunction[F_]:=Module[{mat,eye,pd,cond,qbase,pbase,i,p},
     Return[ Transpose[mat] ]
 ]
 
+AbsorbedHamiltonian[Ham_,ab_,gamma_,isSymmetric_:True] := Module[{i,res,eye,j,mat},
+    If[Not[MatrixQ[ab]],Message[AbsorbedEvolve::AbsorberError];Abort[]];
+	eye = N[ IdentityMatrix[Dim], Quantica`MP`dps];
+	mat = ConstantArray[0,{Dim,Dim}];
+    For[j=0,j<Dim,j++;
+		res = ConstantArray[0,Dim];    	
+    	For[i=0,i<Length[ab],i++;
+			res += I*gamma*ab[[i]]*Conjugate[ab[[i]]]*Ham.eye[[j]];
+    	];
+    	mat[[j]] = res;
+    ];
+    res = Ham - Transpose@mat;
+    
+    Return[res]
+]
 (*
 MatrixV[] := Module[{mat,q,funcV,funcT},
     q = Quantica`X[[1]];
