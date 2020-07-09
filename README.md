@@ -4,7 +4,6 @@ Quantica
 Mathematica library for quantum dynamical system 
 
 
-[Documentation](Documentation/html/quantica_document.html)
 
 ## Licences
 ----
