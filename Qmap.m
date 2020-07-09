@@ -21,9 +21,15 @@ Qmap`SetSystem			:=	Qmap`Private`SetSystem
 Qmap`GetSystem			:=	Qmap`Private`GetSystem
 Qmap`Evolve             :=  Qmap`Private`Evolve
 Qmap`SymmetricEvolve    :=  Qmap`Private`SymmetricEvolve
+Qmap`EvolveR             :=  Qmap`Private`EvolveR
+Qmap`SymmetricEvolveR    :=  Qmap`Private`SymmetricEvolveR
 Qmap`AbsorbedEvolve     :=  Qmap`Private`AbsorbedEvolve
 Qmap`Unitary            :=  Qmap`Private`Unitary
+Qmap`ParallelUnitary            :=  Qmap`Private`ParallelUnitary
 Qmap`SymmetricUnitary   :=  Qmap`Private`SymmetricUnitary
+Qmap`ParallelSymmetricUnitary   :=  Qmap`Private`ParallelSymmetricUnitary
+Qmap`UnitaryR            :=  Qmap`Private`UnitaryR
+Qmap`SymmetricUnitaryR   :=  Qmap`Private`SymmetricUnitaryR
 Qmap`AbsorbedUnitary    :=  Qmap`Private`AbsorbedUnitary
 Qmap`SymplecticUnitary  :=  Qmap`Private`SymplecticUnitary
 Qmap`SymplecticEvolve	:=	Qmap`Private`SymplecticEvolve
@@ -56,6 +62,24 @@ Evolve[vec_] := Module[{q,p,funcT,funcV,pd,qvec,pvec,input},
     Return[ qvec ]
 ]
 
+EvolveR[vec_] := Module[{q,p,funcT,funcV,pd,qvec,input},
+    q = Quantica`X[[1]];
+    p = Quantica`X[[2]];
+    {funcT,funcV} = GetSystem[];
+    pd=Domain[[2]];
+	input = FFT[vec];
+    qvec = IFFT @ If[ pd[[1]]*pd[[2]] < 0,
+		input = Exp[-I * RotateLeft[ funcT[p], Dim/2] * Tau / Hbar]*input,
+        input = Exp[ -I * funcT[p]*Tau/Hbar]*input;
+    ];	
+    qvec = Exp[ -I * funcV[q]*Tau/Hbar]*qvec;
+
+    
+    Return[ qvec ]
+]
+
+
+
 SymmetricEvolve[vec_,z_:1] := Module[{c,q,p,funcT,funcV,pd,qvec,pvec, input},
     q = Quantica`X[[1]];
     p = Quantica`X[[2]];
@@ -72,6 +96,29 @@ SymmetricEvolve[vec_,z_:1] := Module[{c,q,p,funcT,funcV,pd,qvec,pvec, input},
 	qvec = IFFT[pvec];    
     Return[qvec];
 ]
+
+SymmetricEvolveR[vec_,z_:1] := Module[{c,q,p,funcT,funcV,pd,qvec,pvec, input},
+    q = Quantica`X[[1]];
+    p = Quantica`X[[2]];
+    c = z*{1/2,1};
+    {funcT,funcV} = GetSystem[];
+    pd=Domain[[2]];
+	(*Exit[];*)	
+	pvec = FFT[vec];
+    qvec = IFFT @ If[ pd[[1]]*pd[[2]] < 0,
+		input = Exp[-I * RotateLeft[ funcT[p], Dim/2] * Tau / Hbar /2 ]*pvec,
+        input = Exp[ -I * funcT[p]*Tau/Hbar /2 ]*pvec;
+    ];	
+
+    pvec = FFT [Exp[ -I * funcV[q] * Tau/Hbar]*qvec];
+    qvec = IFFT @ If[ pd[[1]]*pd[[2]] < 0,
+		input = Exp[-I * RotateLeft[ funcT[p], Dim/2] * Tau / Hbar /2]*pvec,
+        input = Exp[ -I * funcT[p]*Tau/Hbar /2 ]*pvec;
+    ];	
+
+    Return[qvec];
+]
+
 
 
 AbsorbedEvolve[vec_,ab_,gamma_,isSymmetric_:True] := Module[{i,qvec},
@@ -100,7 +147,13 @@ SymmetricAbsorbedEvolve[vec_,ab_,gamma_,isSymmetric_:True] := Module[{i,qvec},
 
 
 Unitary[] := Transpose @ Map[ Evolve[State`Unit[#]] &, Range[Quantica`Dim] ]
+ParallelUnitary[] := Transpose @ ParallelMap[ Evolve[State`Unit[#]] &, Range[Quantica`Dim] ]
 SymmetricUnitary[] := Transpose @ Map[ SymmetricEvolve[State`Unit[#]] &, Range[Quantica`Dim] ]
+ParallelSymmetricUnitary[] := Transpose @ ParallelMap[ SymmetricEvolve[State`Unit[#]] &, Range[Quantica`Dim] ]
+
+UnitaryR[] := Transpose @ Map[ EvolveR[State`Unit[#]] &, Range[Quantica`Dim] ]
+SymmetricUnitaryR[] := Transpose @ Map[ SymmetricEvolveR[State`Unit[#]] &, Range[Quantica`Dim] ]
+
 AbsorbedUnitary[ab_,gamma_,isSymmetric_:True] := Transpose @ Map[ AbsorbedEvolve[State`Unit[#], ab, gamma, isSymmetric] &, Range[Quantica`Dim] ]
 SymmetricAbsorbedUnitary[ab_,gamma_,isSymmetric_:True] := Transpose @ Map[ SymmetricAbsorbedEvolve[State`Unit[#], ab, gamma, isSymmetric] &, Range[Quantica`Dim] ]
 
@@ -193,9 +246,14 @@ SymplecticEvolve[order_:1] := Module[{res},
 	];
 	Return[res]
 ]
+Options[SymplecticUnitary] = {useParallel->True}
 SymplecticUnitary[order_:1]:=Module[{evolve},
+	useParallel=OptionValue[Parallel];	
 	evolve=SymplecticEvolve[order];
-	Transpose @ Map[ evolve[State`Unit[#]] &, Range[Quantica`Dim] ]
+	If[useParallel,
+	  Transpose @ ParallelMap[ evolve[State`Unit[#]] &, Range[Quantica`Dim] ],
+	  Transpose @ Map[ evolve[State`Unit[#]] &, Range[Quantica`Dim] ]
+	]
 ]
 
 End[] (* End Private Context *)

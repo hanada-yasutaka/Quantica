@@ -41,6 +41,8 @@ State`Q2P               :=  State`Private`Q2P
 State`P2Q               :=  State`Private`P2Q
 State`Abs2              :=  State`Private`Abs2
 State`Linear			:=	State`Private`Linear
+State`Linear2			:=	State`Private`Linear2
+State`Linear3			:=	State`Private`Linear3
 State`InnerProduct		:=	State`Private`InnerProduct
 State`InnerProducts		:=	State`Private`InnerProducts
 State`Overlap			:=	State`Private`Overlap
@@ -81,12 +83,35 @@ CS[qc_,pc_]:= Module[{vec,norm,q},
     Return[vec/Sqrt[norm]]
 ]
 
+(* bug contain: phase is worng*)
 Linear[pc_, k_, omega_]:= Module[{q,h, pre,vec,x,norm},
 	Map[testPrec, {pc,k,omega}];
 	q = Quantica`X[[1]];
 	h = Quantica`Planck;
 	pre = -k/(8*Pi*Pi*Sin[Pi*omega]);
 	x = pre*Sin[2*Pi*(q - omega/2)] + q*pc;
+	vec = Exp[I*2*Pi/h * x];
+    norm=Abs[Inner[Times,Conjugate[vec],vec,Plus]]; (*replace Normalize*)
+	Return[vec/Sqrt[norm]];
+]
+
+Linear2[pc_, k_, omega_]:= Module[{q,h, pre,vec,x,norm},
+	Map[testPrec, {pc,k,omega}];
+	q = Quantica`X[[1]];
+	h = Quantica`Planck;
+	pre = -k/(4*Pi*Pi*2*Sin[Pi*omega]);
+	x = pre * (Sin[2*Pi*(q - omega/2)]) - k/(2*4*Pi*Pi) + q*pc;
+	vec = Exp[I*2*Pi/h * x];
+    norm=Abs[Inner[Times,Conjugate[vec],vec,Plus]]; (*replace Normalize*)
+	Return[vec/Sqrt[norm]];
+]
+
+Linear3[pc_,k_,omega_]:= Module[{q,h,vec,x,norm},
+	Map[testPrec, {pc,k,omega}];
+	q = Quantica`X[[1]];
+	h = Quantica`Planck;
+	x =  -k/2*Sin[(q - omega/2)]/Sin[omega/2] - k/2 + q*pc;
+	(*x =  -k/2*Sin[(q - omega/2)]/Sin[omega/2] + q*pc;*)	
 	vec = Exp[I*2*Pi/h * x];
     norm=Abs[Inner[Times,Conjugate[vec],vec,Plus]]; (*replace Normalize*)
 	Return[vec/Sqrt[norm]];
