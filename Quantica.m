@@ -47,7 +47,7 @@ Hbar::usage="effective Planck's constant divided by 2pi"
 
 (*infomation of Pakages*)
 Quantica`Help::usage="Helpを開きます"
-Quantica`Help[] := NotebookOpen[ToFileName[{$UserBaseDirectory, "Applications", "Quantica","Documentation", "English", "Guides"}, "Quantica.nb"]]
+Quantica`Help[] := NotebookOpen[ToFileName[{$UserBaseDirectory, "Applications", "Quantica","Documentation", "Japanese", "Guides"}, "Quantica.nb"]]
 
 Linspace[xmin_,xmax_,n_Integer,endpoint_:False]:=Module[{dx,res},
 	If[endpoint,
