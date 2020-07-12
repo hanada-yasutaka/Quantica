@@ -22,6 +22,9 @@ BCH`BCH2List        :=  BCH`Private`BCH2List
 BCH`BCH3            :=  BCH`Private`BCH3
 BCH`BCH3List        :=  BCH`Private`BCH3List
 
+BCH`OrderFunc                     := BCH`Private`OrderFunc
+BCH`RevalToOperator                     := BCH`Private`RevalToOperator
+BCH`RevalToOperator3S                   := BCH`Private`RevalToOperator3S
 BCH`BCH2Operation			:=	BCH`Private`BCH2Operation
 BCH`BCH2HamiltonianTerm		:=	BCH`Private`BCH2HamiltonianTerm
 BCH`BCH2Hamiltonian			:=	BCH`Private`BCH2Hamiltonian
@@ -229,26 +232,30 @@ RevalToOperator3S[word_, opT_,opV_] := Module[{oplist,res},
 	Return[res];
 ]
 
-BCH2Operation[n_Integer,T_,V_]:=BCH2Operation[n,T,V]=Module[{bch,len, order, opT, opV,res,psilist, replacelist},
+BCH2Operation[n_Integer,T_,V_,ordering_:"TV"]:=BCH2Operation[n,T,V]=Module[{bch,len, order, opT, opV,res,psilist, replacelist},
 	order=OrderFunc[T];
 	opT[f_, x_:q] := S*(T[p] /. p -> HBar/I) * Fold[D, f, Table[x, {i, 1, order}]];
 	opV[f_, x_:q] := S*V[x]*f;
 	bch = Translated2[n];
-	res = Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S;
-
+        res = Which[
+           ordering=="TV", Sum[RevalToOperator[bch[[i]],opT,opV], {i,1,Length[bch] } ]/S,
+           ordering=="VT", Sum[RevalToOperator[bch[[i]],opV,opT], {i,1,Length[bch] } ]/S,
+            True, Print["operator ordering must be 'TV' or 'VT'"];  Abort[];
+        ];
+           
 	len = 2*StringLength @ bch[[1]][[2]];
 	psilist = FoldList[D, Psi[q], Table[q, {i, 1, len}]];
 	replacelist = Table[psilist[[i]] -> (I/HBar*p)^(i - 1), {i, 1, Length[psilist]}];
 	Return[{res//Expand,replacelist}]
 ]
 
-Options[BCH2HamiltonianTerm] = {S->Symbol["S"]}
+Options[BCH2HamiltonianTerm] = {S->Symbol["S"], ordering->"TV"}
 BCH2HamiltonianTerm[1,T_,V_,OptionsPattern[]] = T[p] + V[q]
 BCH2HamiltonianTerm[n_Integer, T_,V_,OptionsPattern[]]:=Module[{op, list},
-	{op,list} = BCH2Operation[n,T,V] // Expand;
+	{op,list} = BCH2Operation[n,T,V,OptionValue[ordering]] // Expand;
 	Return[op /. list /.S->OptionValue[S] ]
 ]
-Options[BCH2Hamiltonian] = {S->Symbol["S"]}
+Options[BCH2Hamiltonian] = {S->Symbol["S"],ordering->"TV"}
 BCH2Hamiltonian[n_Integer,T_,V_,opts:OptionsPattern[]]:=Fold[Plus, BCH2HamiltonianTerm[1,T,V,opts], Table[BCH2HamiltonianTerm[i,T,V,opts], {i,2,n}]] /. S->OptionValue[S]
 
 BCH3SOperation[n_Integer,T_,V_]:=BCH3SOperation[n,T,V]=
