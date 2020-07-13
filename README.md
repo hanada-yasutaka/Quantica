@@ -1,8 +1,7 @@
 Quantica
 ========
 
-Mathematica library for quantum dynamical system 
-
+個人使用の為，色々整備されていません．
 
 
 ## Licences
